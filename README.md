@@ -1,80 +1,105 @@
-# NHANES Analysis: GDM and Hypertension Risk
+# A Practical Guide to Valid Causal Inference with TMLE in Complex Surveys
 
-This repository contains the R scripts for an analysis pipeline investigating the association between a history of gestational diabetes mellitus (GDM) and the risk of hypertension later in life, using data from the National Health and Nutrition Examination Survey (NHANES).
-
-The analysis is structured into three main scripts that should be run sequentially.
+This repository contains the R code to reproduce the analyses and simulations presented in the manuscript: *"A Practical Guide to Valid Causal Inference with TMLE in Complex Surveys: A Survey Design-Aware Variance Estimator and Application"*.
 
 ## Project Overview
 
-The goal of this project is to estimate the causal effect of GDM on hypertension while accounting for the complex survey design of NHANES. The pipeline performs the following major steps:
+Complex population-based surveys are a cornerstone of public health research, yet applying modern causal inference methods such as Targeted Maximum Likelihood Estimation (TMLE) to these datasets is challenging. The absence of a formal framework for incorporating survey design features—namely weighting, stratification, and clustering—can lead to invalid statistical inference.
 
-1.  **Data Acquisition and Preparation**: Downloads, merges, and cleans NHANES data from 2007-2018.
-2.  **Imputation**: Handles missing data in the analytic sample using single imputation.
-3.  **Modeling**:
-    * Fits various Targeted Maximum Likelihood Estimation (TMLE) models to estimate causal effects.
-    * Fits several Generalized Linear Models (GLMs) as a comparison.
-4.  **Results**: Saves all model outputs as `.rds` files for further analysis or reporting.
+This project introduces and validates a practical and theoretically-grounded data analysis strategy to address this gap. The work is divided into two main parts:
 
----
+1. **Real-Data Analysis**: We apply the proposed "Fully-Aware" TMLE methodology to a real-world research question using data from the National Health and Nutrition Examination Survey (NHANES).
 
-## Scripts
+2. **Simulation Study**: We conduct an extensive simulation study that mimics the complexity of NHANES to quantify the performance of our proposed method against naïve approaches that ignore survey design features.
 
-### 1. `1_save_analytic_data.R`
-
-This is the foundational script that prepares the data for all subsequent analyses.
-
-**Key Functions:**
-
-* **Download Data**: Downloads six cycles of NHANES data (2007-2018) using the `nhanesA` package. It fetches data from the Demographics (DEMO), Diabetes (DIQ), Reproductive Health (RHQ), Body Measures (BMX), and Blood Pressure (BPX) questionnaires.
-* **Merge and Clean**: Merges the datasets and recodes variables to create a consistent, analysis-ready dataset. This includes:
-    * Creating the binary outcome variable `HYPERTENSION`.
-    * Creating the binary exposure variable `GDM_HISTORY`.
-    * Harmonizing and simplifying categorical variables like race/ethnicity (`RIDRETH3`) and education (`DMDEDUC2`).
-* **Define Eligibility**: Creates an eligibility flag (`is_eligible`) to include only non-pregnant females aged 20 and over without pre-existing diabetes.
-* **Impute Missing Data**:
-    * Filters the data to an `analytic_sample` of eligible participants with non-missing exposure and outcome.
-    * Uses the `mice` package to perform a **single imputation** (`m=1`) for missing values in covariates (e.g., `BMXBMI`, `INDFMPIR`). Predictive mean matching (`pmm`) and polytomous regression (`polyreg`) are used as imputation methods.
-* **Save Output**: Saves the final, clean, and imputed dataset as `nhanes_singly_imputed_data.rds`. This file is the input for the two modeling scripts.
-
-### 2. `2_run_tmle.R`
-
-This script uses the imputed data to perform a series of Targeted Maximum Likelihood Estimation (TMLE) analyses to estimate the causal effect of GDM on hypertension. TMLE is a doubly-robust method that uses machine learning to reduce bias.
-
-**Key Functions:**
-
-* **Load Data**: Loads the `nhanes_singly_imputed_data.rds` file.
-* **Setup SuperLearner**: Defines several libraries of machine learning algorithms (e.g., `SL.glm`, `SL.gam`, `SL.earth`, `SL.glmnet`) to be used by TMLE for modeling the outcome and exposure mechanisms.
-* **Define Analysis Tasks**: Creates a comprehensive list of different TMLE models to run, varying by:
-    * **Nuisance Model Specfication**: Using a simple GLM or a SuperLearner with different numbers of algorithms.
-    * **Survey Feature Awareness**:
-        * **Non-Aware**: Ignores all survey design features.
-        * **Partially-Aware**: Accounts for survey weights but ignores clustering and stratification.
-        * **Fully-Aware**: Accounts for survey weights and uses the influence curve to calculate variance estimates that respect the complex survey design (clustering and stratification).
-* **Parallel Execution**: Runs all the defined TMLE analyses in parallel to speed up computation time.
-* **Save Results**: Saves the output of each TMLE analysis into a separate `.rds` file in the `results/` directory (e.g., `glm_weighted.rds`, `SL3_fully_aware.rds`).
-
-### 3. `3_run_glm.R`
-
-This script serves as a comparison to the TMLE analyses. It fits more traditional Generalized Linear Models (GLMs) to the imputed data to estimate the association between GDM and hypertension.
-
-**Key Functions:**
-
-* **Load Data**: Loads the `nhanes_singly_imputed_data.rds` file.
-* **Fit Models**: Fits three types of GLMs to estimate different parameters:
-    * **Odds Ratio (OR)**: Using a quasibinomial model with a logit link.
-    * **Risk Ratio (RR)**: Using a quasipoisson model with a log link.
-    * **Risk Difference / Average Treatment Effect (ATE)**: Using a Gaussian model with an identity link.
-* **Vary Survey Awareness**: For each parameter (OR, RR, ATE), it fits the model in three ways:
-    * **Non-Aware**: A standard `glm()` that ignores all survey features.
-    * **Partially-Aware**: A `svyglm()` that only accounts for survey weights.
-    * **Fully-Aware**: A `svyglm()` that accounts for weights, strata, and primary sampling units (PSUs).
-* **Save Results**: Extracts the coefficients, confidence intervals, and p-values for the exposure (`A`) from each model and saves them to separate `.rds` files in the `base_results/` directory (e.g., `survey_glm_fully_aware.rds`).
+The goal is to provide a robust, replicable framework for applied researchers to conduct valid causal inference using TMLE with complex survey data.
 
 ---
 
-## How to Run
+## Repository Structure
 
-1.  Place all three scripts in the same root directory.
-2.  Run `1_save_analytic_data.R` first to generate the necessary `nhanes_singly_imputed_data.rds` file.
-3.  Run `2_run_tmle.R` to perform the TMLE analyses. Results will be saved in the `results/` folder.
-4.  Run `3_run_glm.R` to perform the GLM analyses. Results will be saved in the `base_results/` folder.
+The repository is organized into two main components: the real-data analysis and the simulation study.
+
+* `/`: Contains the primary R scripts.
+
+* `/base_results/`: Stores the output from the GLM-based conditional models in the real-data analysis (shown in the app, if selected).
+
+* `/results/`: Stores the output from the TMLE-based models in the real-data analysis.
+
+* `/data/`: Stores the output from the simulation studies.
+
+---
+
+## Part 1: Real-Data Analysis (NHANES)
+
+This part of the project investigates the association between a history of gestational diabetes mellitus (GDM) and the subsequent risk of developing hypertension in adult women in the United States, using six cycles of NHANES data (2007-2018).
+
+### Real-Data Scripts
+
+* `1_save_analytic_data.R`: The foundational script. It downloads, merges, and cleans the raw NHANES data. It then creates the necessary analysis variables, defines the eligible study population, performs a single imputation for missing covariate data using `mice`, and saves the final analytic dataset (`nhanes_singly_imputed_data.rds`). **This script must be run first.**
+
+* `2_run_tmle.R`: Loads the imputed data and runs a series of TMLE analyses. It uses different `SuperLearner` libraries to estimate the causal effect and compares three approaches: "Non-Aware" (ignores all survey features), "Partially-Aware" (uses weights only), and "Fully-Aware" (uses weights, strata, and clusters for variance estimation). Results are saved to the `/results` directory.
+
+* `3_run_glm.R`: Serves as a comparison to the TMLE analyses. It fits more traditional survey-weighted Generalized Linear Models (GLMs) to estimate odds ratios, risk ratios, and risk differences, also comparing the "Non-Aware", "Partially-Aware", and "Fully-Aware" approaches. Results are saved to the `/base_results` directory.
+
+### How to Run the Real-Data Analysis
+
+1. Place `1_save_analytic_data.R`, `2_run_tmle.R`, and `3_run_glm.R` in the same root directory.
+
+2. Run `1_save_analytic_data.R` to generate the `nhanes_singly_imputed_data.rds` file.
+
+3. Run `2_run_tmle.R` to perform the TMLE analyses.
+
+4. Run `3_run_glm.R` to perform the comparative GLM analyses.
+
+---
+
+## Part 2: Simulation Study
+
+This part of the project validates the proposed methodology through a Monte Carlo simulation study. The simulation generates data that mimics the key features of NHANES, including stratification, clustering, and informative sampling.
+
+### Simulation Scenarios
+
+The simulations test estimator performance under two scenarios:
+
+1. **Simple Scenario**: The relationships between confounders, treatment, and outcome are linear. Parametric models are correctly specified.
+
+2. **Complex Scenario**: The relationships are highly non-linear, designed to challenge the estimators and test the flexibility of machine learning approaches under model misspecification.
+
+### Simulation Scripts
+
+The simulation is broken into multiple scripts, each testing a different set of models. They all follow a similar structure: a data generation function (`create.data`), a main simulation function (`run_one_simulation`), and a parallel backend to run 1,000 repetitions for both the simple and complex scenarios.
+
+* `sim1glm.R`: Runs a TMLE analysis where the nuisance models (Q and g) are estimated using a standard `glm`.
+
+* `sim1svyglm.R`: Runs a parametric g-computation analysis using `svyglm` as a benchmark.
+
+* `sim3sl.R`, `sim4sl.R`, `sim5sl.R`, `sim8sl.R`: These scripts run TMLE using `SuperLearner` with increasingly complex libraries of machine learning algorithms. The number in the filename (3, 4, 5, 8) corresponds to the number of learners in the library, as detailed in the manuscript. Each script also compares the "Non-Aware", "Partially-Aware", "Fully-Aware", and a special "Fully-Aware-CV" (with survey-aware cross-validation) approach.
+
+### How to Run the Simulations
+
+Each simulation script is self-contained and can be run independently. For example, to run the simulation for the Super Learner with 3 algorithms, simply execute `sim3sl.R`. The script will create the necessary directories and save the aggregated results as an `.rds` file in the `/data` directory (e.g., `simulation_results_3.rds`).
+
+---
+
+## Dependencies
+
+This project requires the following R packages. You can install them using `install.packages()`.
+
+* `pacman`
+* `tidyverse`
+* `nhanesA`
+* `here`
+* `survey`
+* `gtsummary`
+* `naniar`
+* `DataExplorer`
+* `mice`
+* `tmle`
+* `SuperLearner`
+* `earth`
+* `gam`
+* `glmnet`
+* `parallel`
+* `rsimsum`
+* `surveyCV`
