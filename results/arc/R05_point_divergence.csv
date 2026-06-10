@@ -1,0 +1,9 @@
+"example","label","rung","b_FA","b_FA_h05","b_CF","b_CF_wOOF","d_FA_CF","d_FA_FAh05","d_CFwOOF_CF","d_CFwOOF_FA","cfwoof_closer_to"
+"E3","E-cigarette use -> hypertension","L1_param",0.0189,0.0189,0.0323,NA,0.0134,0,NA,NA,NA
+"E3","E-cigarette use -> hypertension","L2_smooth",0.0308,0.0308,0.0338,0.0323,0.0029,0,0.0015,0.0015,"CF"
+"E3","E-cigarette use -> hypertension","L3_adaptive",0.09,0.09,0.0262,0.0251,0.0638,0,0.0011,0.0649,"CF"
+"E3","E-cigarette use -> hypertension","L4_aggressive",0.1523,0.1523,-0.0045,-0.0084,0.1568,0,0.004,0.1607,"CF"
+"E4","GDM history -> hypertension (hardened)","L1_param",0.0181,0.0181,0.0013,NA,0.0167,0,NA,NA,NA
+"E4","GDM history -> hypertension (hardened)","L2_smooth",0.0231,0.0231,0.0022,0.0042,0.021,0,0.002,0.0189,"CF"
+"E4","GDM history -> hypertension (hardened)","L3_adaptive",0.0257,0.0257,-6e-04,0.0012,0.0263,0,0.0018,0.0245,"CF"
+"E4","GDM history -> hypertension (hardened)","L4_aggressive",-0.338,-0.338,-0.0249,-0.0271,0.3131,0,0.0022,0.3108,"CF"

@@ -1,0 +1,21 @@
+"example","label","method","b","se","df","b_imp_sd","within_se","between_sd","riv","fmi","M","lcl","ucl","signif"
+"E1","Short sleep -> obesity","Fully-Aware",0.0355,0.0078,91.6709,5e-04,0.0077,5e-04,0.0042,0.0252,40,0.0201,0.0509,TRUE
+"E1","Short sleep -> obesity","Partially-Aware",0.0355,0.0082,30515.1847,5e-04,0.0082,5e-04,0.0038,0.0039,40,0.0195,0.0515,TRUE
+"E1","Short sleep -> obesity","Non-Aware",0.0354,0.0058,30509.0078,4e-04,0.0057,4e-04,0.0038,0.0039,40,0.0241,0.0467,TRUE
+"E1","Short sleep -> obesity","Fully-Aware-CV",0.0354,0.0077,91.3479,7e-04,0.0077,7e-04,0.0077,0.0287,40,0.02,0.0507,TRUE
+"E1","Short sleep -> obesity","Fully-Aware-CF",0.0363,0.0079,90.0048,0.0011,0.0078,0.0011,0.0218,0.0424,40,0.0207,0.0519,TRUE
+"E2","Food insecurity -> depression","Fully-Aware",0.0929,0.0122,82.9686,0.0035,0.0117,0.0035,0.0926,0.1061,40,0.0686,0.1173,TRUE
+"E2","Food insecurity -> depression","Partially-Aware",0.0929,0.0118,3988.3947,0.0035,0.0112,0.0035,0.1003,0.0917,40,0.0698,0.116,TRUE
+"E2","Food insecurity -> depression","Non-Aware",0.0712,0.0063,5650.6677,0.0017,0.0061,0.0017,0.0798,0.0743,40,0.0589,0.0835,TRUE
+"E2","Food insecurity -> depression","Fully-Aware-CV",0.0863,0.0081,88.4121,0.0015,0.0079,0.0015,0.0381,0.0578,40,0.0702,0.1024,TRUE
+"E2","Food insecurity -> depression","Fully-Aware-CF",0.0867,0.0084,81.2585,0.0026,0.008,0.0026,0.1098,0.1204,40,0.07,0.1035,TRUE
+"E3","E-cigarette use -> hypertension","Fully-Aware",0.0303,0.025,27.9063,0.0024,0.0249,0.0024,0.0098,0.0738,40,-0.0209,0.0815,FALSE
+"E3","E-cigarette use -> hypertension","Partially-Aware",0.0303,0.0284,10489.2634,0.0024,0.0283,0.0024,0.0076,0.0077,40,-0.0253,0.0859,FALSE
+"E3","E-cigarette use -> hypertension","Non-Aware",0.0699,0.0154,10411.8376,0.0014,0.0153,0.0014,0.009,0.0091,40,0.0398,0.1001,TRUE
+"E3","E-cigarette use -> hypertension","Fully-Aware-CV",0.0403,0.02,28.1125,0.001,0.0199,0.001,0.0025,0.0666,40,-6e-04,0.0812,FALSE
+"E3","E-cigarette use -> hypertension","Fully-Aware-CF",0.0332,0.0205,26.4164,0.005,0.0199,0.005,0.0642,0.1242,40,-0.0089,0.0752,FALSE
+"E4","GDM history -> hypertension (hardened)","Fully-Aware",0.0231,0.0262,89.6775,0.0041,0.0259,0.0041,0.0252,0.0456,40,-0.0289,0.0752,FALSE
+"E4","GDM history -> hypertension (hardened)","Partially-Aware",0.0231,0.0262,9164.1045,0.0041,0.0258,0.0041,0.0252,0.0248,40,-0.0281,0.0744,FALSE
+"E4","GDM history -> hypertension (hardened)","Non-Aware",0.0265,0.0184,9699.5219,0.0026,0.0182,0.0026,0.0201,0.0199,40,-0.0096,0.0626,FALSE
+"E4","GDM history -> hypertension (hardened)","Fully-Aware-CV",0.006,0.0231,90.6014,0.0028,0.0229,0.0028,0.0156,0.0364,40,-0.0398,0.0518,FALSE
+"E4","GDM history -> hypertension (hardened)","Fully-Aware-CF",0.0019,0.0247,88.8756,0.0044,0.0243,0.0044,0.0334,0.0534,40,-0.0471,0.051,FALSE

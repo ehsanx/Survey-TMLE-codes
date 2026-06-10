@@ -1,0 +1,5 @@
+"example","label","n_strata","n_cycles","max_cycles_spanned","n_strata_multicycle","overlap_clean","strata_min","strata_max","dom_max_cycles_spanned","dom_overlap_clean"
+"E1","Short sleep -> obesity",90,6,1,0,TRUE,59,148,1,TRUE
+"E2","Food insecurity -> depression",90,6,1,0,TRUE,59,148,1,TRUE
+"E3","E-cigarette use -> hypertension",30,2,1,0,TRUE,119,148,1,TRUE
+"E4","GDM history -> hypertension (hardened)",90,6,1,0,TRUE,59,148,1,TRUE

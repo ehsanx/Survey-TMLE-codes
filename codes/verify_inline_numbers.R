@@ -1,0 +1,1020 @@
+# =====================================================================
+# verify_inline_numbers.R
+#
+# PAPER TRAIL + CHECK for every numeric value that was hand-written into the
+# manuscript/appendix PROSE during the 2026-06-08 edits:
+#   (1) manuscript.Rmd  -- the tab:sim L4-conservatism sentence (Sec 5 Results)
+#   (2) appendix.Rmd    -- the Web Appendix F "Real-data echo" subsection
+#   (3) manuscript.Rmd  -- the Section 6 NHANES ladder sentence
+#
+# The TABLES in those edits are already auto-generated (make_figures.R ->
+# table1_main.tex; render_overlap_tex.R -> webF_overlap.tex). This script does
+# the same for the numbers that were typed into prose: it re-derives each from
+# the locked source CSV, records the value AS WRITTEN, and asserts agreement
+# after rounding to the precision used in the text.
+#
+# Sources (all committed in the repo):
+#   results/sim_full_summary.csv
+#   Nhanes/nhanes_output/results/nhanes_results_summary.csv
+#   Nhanes/nhanes_output/results/nhanes_diagnostics.csv
+#   Nhanes/results/local_preview_summary.csv   (certified-primary comparison)
+#
+# Output : results/inline_numbers_audit.csv  (one row per quoted number)
+# Run    : Rscript codes/verify_inline_numbers.R    (from the repo root)
+# Exit   : non-zero if ANY quoted number disagrees with its source.
+# =====================================================================
+
+sim <- read.csv("results/sim_full_summary.csv", stringsAsFactors = FALSE)
+nh  <- read.csv("Nhanes/nhanes_output/results/nhanes_results_summary.csv", stringsAsFactors = FALSE)
+dg  <- read.csv("Nhanes/nhanes_output/results/nhanes_diagnostics.csv",     stringsAsFactors = FALSE)
+lp_path <- "Nhanes/results/local_preview_summary.csv"
+lp  <- if (file.exists(lp_path)) read.csv(lp_path, stringsAsFactors = FALSE) else NULL
+
+# ---- accessors (return a single numeric, NA if the row is absent) ----
+S <- function(scen, rung, method, col) {
+  v <- sim[[col]][sim$scenario == scen & sim$rung == rung & sim$method == method]
+  if (length(v) == 1) v else NA_real_
+}
+N <- function(ex, rung, method, col) {
+  v <- nh[[col]][nh$example == ex & nh$rung == rung & nh$method == method]
+  if (length(v) == 1) v else NA_real_
+}
+D <- function(ex, rung, col) {
+  v <- dg[[col]][dg$example == ex & dg$rung == rung]
+  if (length(v) == 1) v else NA_real_
+}
+L <- function(ex, method, col) {
+  if (is.null(lp)) return(NA_real_)
+  v <- lp[[col]][lp$example == ex & lp$method == method]
+  if (length(v) == 1) v else NA_real_
+}
+
+# ---- check accumulator ----
+rows <- list()
+chk  <- function(where, source, written, derived, ok) {
+  rows[[length(rows) + 1]] <<- data.frame(
+    where = where, source = source, written = as.character(written),
+    derived = as.character(derived), ok = isTRUE(ok), stringsAsFactors = FALSE)
+}
+# numeric equality after rounding to d decimals
+eqd <- function(written_num, derived, d) isTRUE(round(derived, d) == round(written_num, d))
+
+# =====================================================================
+# (1) tab:sim L4-conservatism sentence  (Design A = 'standard', B = 'R1')
+# =====================================================================
+ser_fa_A <- S("standard","L4_aggressive","Fully-Aware","se_ratio")
+ser_fa_B <- S("R1",      "L4_aggressive","Fully-Aware","se_ratio")
+chk("manuscript.Rmd Sec5", "sim_full_summary.csv: standard/L4/Fully-Aware se_ratio",
+    "0.17", sprintf("%.2f", ser_fa_A), eqd(0.17, ser_fa_A, 2))
+chk("manuscript.Rmd Sec5", "sim_full_summary.csv: R1/L4/Fully-Aware se_ratio",
+    "0.15", sprintf("%.2f", ser_fa_B), eqd(0.15, ser_fa_B, 2))
+
+bias_cf_A <- S("standard","L4_aggressive","Fully-Aware-CF","bias")
+bias_cf_B <- S("R1",      "L4_aggressive","Fully-Aware-CF","bias")
+chk("manuscript.Rmd Sec5", "sim_full_summary.csv: standard/L4/Fully-Aware-CF bias",
+    "+0.002", sprintf("%+.3f", bias_cf_A), eqd(0.002, bias_cf_A, 3))
+chk("manuscript.Rmd Sec5", "sim_full_summary.csv: R1/L4/Fully-Aware-CF bias",
+    "+0.006", sprintf("%+.3f", bias_cf_B), eqd(0.006, bias_cf_B, 3))
+
+ser_cf_A <- S("standard","L4_aggressive","Fully-Aware-CF","se_ratio")
+ser_cf_B <- S("R1",      "L4_aggressive","Fully-Aware-CF","se_ratio")
+chk("manuscript.Rmd Sec5", "sim_full_summary.csv: standard/L4/Fully-Aware-CF se_ratio",
+    "1.44", sprintf("%.2f", ser_cf_A), eqd(1.44, ser_cf_A, 2))
+chk("manuscript.Rmd Sec5", "sim_full_summary.csv: R1/L4/Fully-Aware-CF se_ratio",
+    "1.44", sprintf("%.2f", ser_cf_B), eqd(1.44, ser_cf_B, 2))
+
+cov_cf_A <- S("standard","L4_aggressive","Fully-Aware-CF","coverage")
+cov_cf_B <- S("R1",      "L4_aggressive","Fully-Aware-CF","coverage")
+chk("manuscript.Rmd Sec5", "sim_full_summary.csv: standard/L4/Fully-Aware-CF coverage",
+    "0.985", sprintf("%.3f", cov_cf_A), eqd(0.985, cov_cf_A, 3))
+chk("manuscript.Rmd Sec5", "sim_full_summary.csv: R1/L4/Fully-Aware-CF coverage",
+    "0.992", sprintf("%.3f", cov_cf_B), eqd(0.992, cov_cf_B, 3))
+
+mcse_max <- max(S("standard","L4_aggressive","Fully-Aware-CF","mcse_cov"),
+                S("R1",      "L4_aggressive","Fully-Aware-CF","mcse_cov"))
+chk("manuscript.Rmd Sec5", "sim_full_summary.csv: max L4 Fully-Aware-CF mcse_cov",
+    "<=0.004", sprintf("%.4f", mcse_max), round(mcse_max, 3) <= 0.004)
+
+# =====================================================================
+# (2)+(3) NHANES ladder prose  (point estimates: nhanes_results_summary.csv $b)
+# =====================================================================
+# E3 single-fit (Fully-Aware) ladder
+for (z in list(c("L1_param","0.019"), c("L2_smooth","0.031"),
+               c("L3_adaptive","0.090"), c("L4_aggressive","0.152"))) {
+  b <- N("E3", z[1], "Fully-Aware", "b")
+  chk("appendix.Rmd WebF", sprintf("nhanes_summary: E3/%s/Fully-Aware b", z[1]),
+      z[2], sprintf("%.3f", b), eqd(as.numeric(z[2]), b, 3))
+}
+# E3 cross-fit (Fully-Aware-CF) ladder
+for (z in list(c("L1_param","0.033"), c("L2_smooth","0.034"),
+               c("L3_adaptive","0.026"), c("L4_aggressive","-0.005"))) {
+  b <- N("E3", z[1], "Fully-Aware-CF", "b")
+  chk("appendix.Rmd WebF", sprintf("nhanes_summary: E3/%s/Fully-Aware-CF b", z[1]),
+      z[2], sprintf("%.3f", b), eqd(as.numeric(z[2]), b, 3))
+}
+# E4 L4: weighted single-fit, unweighted Non-Aware, CF L3/L4
+b <- N("E4","L4_aggressive","Fully-Aware","b")
+chk("appendix.Rmd WebF", "nhanes_summary: E4/L4/Fully-Aware b (weighted single-fit)",
+    "-0.338", sprintf("%.3f", b), eqd(-0.338, b, 3))
+chk("appendix.Rmd WebF", "nhanes_summary: E4/L4/Fully-Aware lcl,ucl",
+    "[-0.353, -0.323]",
+    sprintf("[%.3f, %.3f]", N("E4","L4_aggressive","Fully-Aware","lcl"),
+                            N("E4","L4_aggressive","Fully-Aware","ucl")),
+    eqd(-0.353, N("E4","L4_aggressive","Fully-Aware","lcl"), 3) &&
+    eqd(-0.323, N("E4","L4_aggressive","Fully-Aware","ucl"), 3))
+chk("appendix.Rmd WebF", "nhanes_summary: E4/L4/Non-Aware b (unweighted single-fit)",
+    "+0.147", sprintf("%+.3f", N("E4","L4_aggressive","Non-Aware","b")),
+    eqd(0.147, N("E4","L4_aggressive","Non-Aware","b"), 3))
+chk("appendix.Rmd WebF", "nhanes_summary: E4/L3/Fully-Aware-CF b",
+    "-0.001", sprintf("%.3f", N("E4","L3_adaptive","Fully-Aware-CF","b")),
+    eqd(-0.001, N("E4","L3_adaptive","Fully-Aware-CF","b"), 3))
+chk("appendix.Rmd WebF", "nhanes_summary: E4/L4/Fully-Aware-CF b",
+    "-0.022", sprintf("%.3f", N("E4","L4_aggressive","Fully-Aware-CF","b")),
+    eqd(-0.022, N("E4","L4_aggressive","Fully-Aware-CF","b"), 3))
+
+# E1 ladder (short sleep) -- single-fit sign-flips at L4, cross-fit stable
+for (z in list(c("L1_param","0.044"), c("L2_smooth","0.035"),
+               c("L3_adaptive","0.036"), c("L4_aggressive","-0.042"))) {
+  b <- N("E1", z[1], "Fully-Aware", "b")
+  chk("appendix.Rmd WebF", sprintf("nhanes_summary: E1/%s/Fully-Aware b", z[1]),
+      z[2], sprintf("%.3f", b), eqd(as.numeric(z[2]), b, 3))
+}
+chk("appendix.Rmd WebF", "nhanes_summary: E1/L4/Fully-Aware lcl,ucl",
+    "[-0.052, -0.031]",
+    sprintf("[%.3f, %.3f]", N("E1","L4_aggressive","Fully-Aware","lcl"),
+                            N("E1","L4_aggressive","Fully-Aware","ucl")),
+    eqd(-0.052, N("E1","L4_aggressive","Fully-Aware","lcl"), 3) &&
+    eqd(-0.031, N("E1","L4_aggressive","Fully-Aware","ucl"), 3))
+for (z in list(c("L1_param","0.045"), c("L2_smooth","0.035"),
+               c("L3_adaptive","0.034"), c("L4_aggressive","0.034"))) {
+  b <- N("E1", z[1], "Fully-Aware-CF", "b")
+  chk("appendix.Rmd WebF", sprintf("nhanes_summary: E1/%s/Fully-Aware-CF b", z[1]),
+      z[2], sprintf("%.3f", b), eqd(as.numeric(z[2]), b, 3))
+}
+# E2 ladder (food insecurity) -- single-fit collapses a real effect, cross-fit preserves
+for (z in list(c("L1_param","0.102"), c("L2_smooth","0.095"),
+               c("L3_adaptive","0.110"), c("L4_aggressive","-0.003"))) {
+  b <- N("E2", z[1], "Fully-Aware", "b")
+  chk("appendix.Rmd WebF", sprintf("nhanes_summary: E2/%s/Fully-Aware b", z[1]),
+      z[2], sprintf("%.3f", b), eqd(as.numeric(z[2]), b, 3))
+}
+for (z in list(c("L1_param","0.092"), c("L2_smooth","0.088"),
+               c("L3_adaptive","0.084"), c("L4_aggressive","0.085"))) {
+  b <- N("E2", z[1], "Fully-Aware-CF", "b")
+  chk("appendix.Rmd WebF", sprintf("nhanes_summary: E2/%s/Fully-Aware-CF b", z[1]),
+      z[2], sprintf("%.3f", b), eqd(as.numeric(z[2]), b, 3))
+}
+
+# L2 "near-Donsker" cross-fit, quoted in the consistency note
+for (z in list(c("E1","0.035"), c("E2","0.088"), c("E3","0.034"), c("E4","0.002"))) {
+  b <- N(z[1], "L2_smooth", "Fully-Aware-CF", "b")
+  chk("appendix.Rmd WebF", sprintf("nhanes_summary: %s/L2/Fully-Aware-CF b", z[1]),
+      z[2], sprintf("%.3f", b), eqd(as.numeric(z[2]), b, 3))
+}
+# certified-primary comparison numbers (local 3-learner preview)
+for (z in list(c("E1","0.036"), c("E2","0.089"), c("E3","0.038"), c("E4","0.006"))) {
+  b <- L(z[1], "Fully-Aware-CF", "b")
+  chk("appendix.Rmd WebF", sprintf("local_preview_summary: %s/Fully-Aware-CF b", z[1]),
+      z[2], sprintf("%.3f", b), eqd(as.numeric(z[2]), b, 3))
+}
+
+# Section-6 main-text rounded values
+chk("manuscript.Rmd Sec6", "nhanes_summary: E3/L4/Fully-Aware b -> 0.15",
+    "0.15", sprintf("%.2f", N("E3","L4_aggressive","Fully-Aware","b")),
+    eqd(0.15, N("E3","L4_aggressive","Fully-Aware","b"), 2))
+chk("manuscript.Rmd Sec6", "nhanes_summary: E4/L4/Fully-Aware b -> -0.34",
+    "-0.34", sprintf("%.2f", N("E4","L4_aggressive","Fully-Aware","b")),
+    eqd(-0.34, N("E4","L4_aggressive","Fully-Aware","b"), 2))
+
+# =====================================================================
+# diagnostics-derived prose (nhanes_diagnostics.csv)
+# =====================================================================
+chk("appendix.Rmd WebF", "diagnostics: E3 A_prev -> 18%",
+    "18%", sprintf("%.0f%%", 100*D("E3","L1_param","A_prev")),
+    round(100*D("E3","L1_param","A_prev")) == 18)
+chk("appendix.Rmd WebF", "diagnostics: E4 A_prev -> 6%",
+    "6%", sprintf("%.0f%%", 100*D("E4","L1_param","A_prev")),
+    round(100*D("E4","L1_param","A_prev")) == 6)
+chk("appendix.Rmd WebF", "diagnostics: E1 L4 g_fa_near_bound -> 16%",
+    "16%", sprintf("%.0f%%", 100*D("E1","L4_aggressive","g_fa_near_bound")),
+    round(100*D("E1","L4_aggressive","g_fa_near_bound")) == 16)
+chk("appendix.Rmd WebF", "diagnostics: E2 L4 g_fa_near_bound -> 42%",
+    "42%", sprintf("%.0f%%", 100*D("E2","L4_aggressive","g_fa_near_bound")),
+    round(100*D("E2","L4_aggressive","g_fa_near_bound")) == 42)
+chk("appendix.Rmd WebF", "diagnostics: E3 L4 g_fa_near_bound -> 58%",
+    "58%", sprintf("%.0f%%", 100*D("E3","L4_aggressive","g_fa_near_bound")),
+    round(100*D("E3","L4_aggressive","g_fa_near_bound")) == 58)
+chk("appendix.Rmd WebF", "diagnostics: E4 L4 g_fa_near_bound -> 68%",
+    "68%", sprintf("%.0f%%", 100*D("E4","L4_aggressive","g_fa_near_bound")),
+    round(100*D("E4","L4_aggressive","g_fa_near_bound")) == 68)
+chk("appendix.Rmd WebF", "diagnostics: E4 L4 g_cf range -> [0.05, 0.54]",
+    "[0.05, 0.54]",
+    sprintf("[%.2f, %.2f]", D("E4","L4_aggressive","g_cf_min"), D("E4","L4_aggressive","g_cf_max")),
+    eqd(0.05, D("E4","L4_aggressive","g_cf_min"), 2) && eqd(0.54, D("E4","L4_aggressive","g_cf_max"), 2))
+chk("appendix.Rmd WebF", "diagnostics: E3 L4 g_cf range -> [0.05, 0.95]",
+    "[0.05, 0.95]",
+    sprintf("[%.2f, %.2f]", D("E3","L4_aggressive","g_cf_min"), D("E3","L4_aggressive","g_cf_max")),
+    eqd(0.05, D("E3","L4_aggressive","g_cf_min"), 2) && eqd(0.95, D("E3","L4_aggressive","g_cf_max"), 2))
+# =====================================================================
+# write + report
+# =====================================================================
+
+# =====================================================================
+# (R03) Web Appendix D isolation 2x2 prose  (cross-fitting vs de-weighting)
+# Source: results/arc/R03_isolation_2x2_summary.csv  (aggregate.R output).
+# Added 2026-06-08 for the R03_isolation_2x2 write-up. This file currently
+# reads sim_full_summary.csv / nhanes_*; the R03 numbers live in a separate
+# arc CSV, so we add a dedicated reader + accessor here.
+# =====================================================================
+iso_path <- "results/arc/R03_isolation_2x2_summary.csv"
+iso <- if (file.exists(iso_path)) read.csv(iso_path, stringsAsFactors = FALSE) else NULL
+# accessor: single numeric for (rung, method, column), NA if absent
+I <- function(rung, method, col) {
+  if (is.null(iso)) return(NA_real_)
+  v <- iso[[col]][iso$rung == rung & iso$method == method]
+  if (length(v) == 1) v else NA_real_
+}
+
+# ---- L4_aggressive demonstration: coverage (3 dp) ----
+for (z in list(c("SF-W","0.398"), c("SF-U","0.394"),
+               c("CF-W","0.985"), c("CF-U","0.987"))) {
+  v <- I("L4_aggressive", z[1], "coverage")
+  chk("appendix.Rmd WebD-iso", sprintf("R03 csv: L4_aggressive/%s coverage", z[1]),
+      z[2], sprintf("%.3f", v), eqd(as.numeric(z[2]), v, 3))
+}
+# ---- L4_aggressive demonstration: bias (signed, 3 dp) ----
+for (z in list(c("SF-W","+0.050"), c("SF-U","+0.025"),
+               c("CF-W","+0.003"), c("CF-U","+0.001"))) {
+  v <- I("L4_aggressive", z[1], "bias")
+  chk("appendix.Rmd WebD-iso", sprintf("R03 csv: L4_aggressive/%s bias", z[1]),
+      z[2], sprintf("%+.3f", v), eqd(as.numeric(z[2]), v, 3))
+}
+# ---- L4_aggressive: cross-fit SE-to-SD ratios (2 dp) ----
+chk("appendix.Rmd WebD-iso", "R03 csv: L4_aggressive/CF-W se_ratio",
+    "1.55", sprintf("%.2f", I("L4_aggressive","CF-W","se_ratio")),
+    eqd(1.55, I("L4_aggressive","CF-W","se_ratio"), 2))
+chk("appendix.Rmd WebD-iso", "R03 csv: L4_aggressive/CF-U se_ratio",
+    "1.44", sprintf("%.2f", I("L4_aggressive","CF-U","se_ratio")),
+    eqd(1.44, I("L4_aggressive","CF-U","se_ratio"), 2))
+# ---- L1_param placebo: coverage (3 dp) ----
+for (z in list(c("SF-W","0.954"), c("SF-U","0.938"),
+               c("CF-W","0.974"), c("CF-U","0.944"))) {
+  v <- I("L1_param", z[1], "coverage")
+  chk("appendix.Rmd WebD-iso", sprintf("R03 csv: L1_param/%s coverage", z[1]),
+      z[2], sprintf("%.3f", v), eqd(as.numeric(z[2]), v, 3))
+}
+# ---- L1_param placebo: usable n and diverged counts (weighted arms) ----
+chk("appendix.Rmd WebD-iso", "R03 csv: L1_param/SF-W n_reps",
+    "828", sprintf("%d", as.integer(I("L1_param","SF-W","n_reps"))),
+    as.integer(I("L1_param","SF-W","n_reps")) == 828L)
+chk("appendix.Rmd WebD-iso", "R03 csv: L1_param/SF-W n_diverged",
+    "172", sprintf("%d", as.integer(I("L1_param","SF-W","n_diverged"))),
+    as.integer(I("L1_param","SF-W","n_diverged")) == 172L)
+chk("appendix.Rmd WebD-iso", "R03 csv: L1_param/CF-W n_reps",
+    "834", sprintf("%d", as.integer(I("L1_param","CF-W","n_reps"))),
+    as.integer(I("L1_param","CF-W","n_reps")) == 834L)
+chk("appendix.Rmd WebD-iso", "R03 csv: L1_param/CF-W n_diverged",
+    "166", sprintf("%d", as.integer(I("L1_param","CF-W","n_diverged"))),
+    as.integer(I("L1_param","CF-W","n_diverged")) == 166L)
+
+
+# =====================================================================
+# (4) Web Appendix D pipeline-correctness control (R01_simple_control)
+#     Source: results/arc/R01_simple_control_summary.csv
+#     model_type {simple,complex} x scenario {standard,R1} x rung x method.
+#     'standard' = Design A, 'R1' = Design B (matches scen_lab in render_*).
+# =====================================================================
+r01_path <- "results/arc/R01_simple_control_summary.csv"
+r01 <- if (file.exists(r01_path)) read.csv(r01_path, stringsAsFactors = FALSE) else NULL
+R01 <- function(mt, scen, rung, method, col) {
+  if (is.null(r01)) return(NA_real_)
+  v <- r01[[col]][r01$model_type == mt & r01$scenario == scen &
+                  r01$rung == rung & r01$method == method]
+  if (length(v) == 1) v else NA_real_
+}
+
+# --- misspecified (complex) L1 Fully-Aware-CF: bias + coverage, both designs ---
+chk("appendix.Rmd WebD-control", "R01 csv: complex/standard(A)/L1/Fully-Aware-CF bias",
+    "+0.020", sprintf("%+.3f", R01("complex","standard","L1_param","Fully-Aware-CF","bias")),
+    eqd(0.020, R01("complex","standard","L1_param","Fully-Aware-CF","bias"), 3))
+chk("appendix.Rmd WebD-control", "R01 csv: complex/R1(B)/L1/Fully-Aware-CF bias",
+    "+0.021", sprintf("%+.3f", R01("complex","R1","L1_param","Fully-Aware-CF","bias")),
+    eqd(0.021, R01("complex","R1","L1_param","Fully-Aware-CF","bias"), 3))
+chk("appendix.Rmd WebD-control", "R01 csv: complex/standard(A)/L1/Fully-Aware-CF coverage",
+    "0.943", sprintf("%.3f", R01("complex","standard","L1_param","Fully-Aware-CF","coverage")),
+    eqd(0.943, R01("complex","standard","L1_param","Fully-Aware-CF","coverage"), 3))
+chk("appendix.Rmd WebD-control", "R01 csv: complex/R1(B)/L1/Fully-Aware-CF coverage",
+    "0.912", sprintf("%.3f", R01("complex","R1","L1_param","Fully-Aware-CF","coverage")),
+    eqd(0.912, R01("complex","R1","L1_param","Fully-Aware-CF","coverage"), 3))
+
+# --- correctly-specified (simple) L1 Fully-Aware-CF: bias + coverage, both designs ---
+chk("appendix.Rmd WebD-control", "R01 csv: simple/standard(A)/L1/Fully-Aware-CF bias",
+    "-0.004", sprintf("%+.3f", R01("simple","standard","L1_param","Fully-Aware-CF","bias")),
+    eqd(-0.004, R01("simple","standard","L1_param","Fully-Aware-CF","bias"), 3))
+chk("appendix.Rmd WebD-control", "R01 csv: simple/R1(B)/L1/Fully-Aware-CF bias",
+    "-0.002", sprintf("%+.3f", R01("simple","R1","L1_param","Fully-Aware-CF","bias")),
+    eqd(-0.002, R01("simple","R1","L1_param","Fully-Aware-CF","bias"), 3))
+chk("appendix.Rmd WebD-control", "R01 csv: simple/standard(A)/L1/Fully-Aware-CF coverage",
+    "0.958", sprintf("%.3f", R01("simple","standard","L1_param","Fully-Aware-CF","coverage")),
+    eqd(0.958, R01("simple","standard","L1_param","Fully-Aware-CF","coverage"), 3))
+chk("appendix.Rmd WebD-control", "R01 csv: simple/R1(B)/L1/Fully-Aware-CF coverage",
+    "0.954", sprintf("%.3f", R01("simple","R1","L1_param","Fully-Aware-CF","coverage")),
+    eqd(0.954, R01("simple","R1","L1_param","Fully-Aware-CF","coverage"), 3))
+
+# --- correctly-specified (simple) L1 Fully-Aware (single-fit): bias + coverage ---
+chk("appendix.Rmd WebD-control", "R01 csv: simple/standard(A)/L1/Fully-Aware bias",
+    "-0.003", sprintf("%+.3f", R01("simple","standard","L1_param","Fully-Aware","bias")),
+    eqd(-0.003, R01("simple","standard","L1_param","Fully-Aware","bias"), 3))
+chk("appendix.Rmd WebD-control", "R01 csv: simple/R1(B)/L1/Fully-Aware bias",
+    "-0.003", sprintf("%+.3f", R01("simple","R1","L1_param","Fully-Aware","bias")),
+    eqd(-0.003, R01("simple","R1","L1_param","Fully-Aware","bias"), 3))
+chk("appendix.Rmd WebD-control", "R01 csv: simple/standard(A)/L1/Fully-Aware coverage",
+    "0.952", sprintf("%.3f", R01("simple","standard","L1_param","Fully-Aware","coverage")),
+    eqd(0.952, R01("simple","standard","L1_param","Fully-Aware","coverage"), 3))
+chk("appendix.Rmd WebD-control", "R01 csv: simple/R1(B)/L1/Fully-Aware coverage",
+    "0.954", sprintf("%.3f", R01("simple","R1","L1_param","Fully-Aware","coverage")),
+    eqd(0.954, R01("simple","R1","L1_param","Fully-Aware","coverage"), 3))
+
+# --- honesty caveat: simple/standard(A)/L1 Fully-Aware |bias| ~ 2x MCSE-of-mean ---
+{
+  b  <- R01("simple","standard","L1_param","Fully-Aware","bias")
+  sd <- R01("simple","standard","L1_param","Fully-Aware","emp_sd")
+  nr <- R01("simple","standard","L1_param","Fully-Aware","n_reps")
+  ratio <- abs(b) / (sd / sqrt(nr))
+  chk("appendix.Rmd WebD-control", "R01 csv: simple/A/L1/Fully-Aware |bias|/MCSE-of-mean ~ 2 (>=1.9,<=2.6)",
+      "about twice MCSE", sprintf("%.2f", ratio), is.finite(ratio) && ratio >= 1.9 && ratio <= 2.6)
+}
+
+# --- Non-Aware under both specifications (complex L1) ---
+chk("appendix.Rmd WebD-control", "R01 csv: complex/standard(A)/L1/Non-Aware bias",
+    "+0.031", sprintf("%+.3f", R01("complex","standard","L1_param","Non-Aware","bias")),
+    eqd(0.031, R01("complex","standard","L1_param","Non-Aware","bias"), 3))
+chk("appendix.Rmd WebD-control", "R01 csv: complex/R1(B)/L1/Non-Aware bias",
+    "+0.044", sprintf("%+.3f", R01("complex","R1","L1_param","Non-Aware","bias")),
+    eqd(0.044, R01("complex","R1","L1_param","Non-Aware","bias"), 3))
+chk("appendix.Rmd WebD-control", "R01 csv: complex/standard(A)/L1/Non-Aware coverage",
+    "0.638", sprintf("%.3f", R01("complex","standard","L1_param","Non-Aware","coverage")),
+    eqd(0.638, R01("complex","standard","L1_param","Non-Aware","coverage"), 3))
+chk("appendix.Rmd WebD-control", "R01 csv: complex/R1(B)/L1/Non-Aware coverage",
+    "0.459", sprintf("%.3f", R01("complex","R1","L1_param","Non-Aware","coverage")),
+    eqd(0.459, R01("complex","R1","L1_param","Non-Aware","coverage"), 3))
+
+# --- manuscript.Rmd Sec5 clause: Kang-Schafer misspecification artifact at L1-L3 ---
+# rounded magnitude "+0.02" used in prose; verify complex/A/L1 Fully-Aware-CF rounds to 0.02
+chk("manuscript.Rmd Sec5", "R01 csv: complex/standard(A)/L1/Fully-Aware-CF bias -> +0.02",
+    "+0.02", sprintf("%+.2f", R01("complex","standard","L1_param","Fully-Aware-CF","bias")),
+    eqd(0.02, R01("complex","standard","L1_param","Fully-Aware-CF","bias"), 2))
+
+# =====================================================================
+# (4) Web Appendix D product nuisance rate prose (R04_nuisance_rate)
+#     Source: results/arc/R04_nuisance_rate_summary.csv
+#     Design A = 'standard'; Design B = 'R1'. Ratios quoted at 2 dp.
+# =====================================================================
+r04_path <- "results/arc/R04_nuisance_rate_summary.csv"
+r04 <- if (file.exists(r04_path)) read.csv(r04_path, stringsAsFactors = FALSE) else NULL
+R4 <- function(scen, rung, col) {
+  if (is.null(r04)) return(NA_real_)
+  v <- r04[[col]][r04$scenario == scen & r04$rung == rung]
+  if (length(v) == 1) v else NA_real_
+}
+
+# Design B (R1) product-error ratio vs L1: L2=0.92, L3=0.94, L4=3.46
+for (z in list(c("L2_smooth","0.92"), c("L3_adaptive","0.94"), c("L4_aggressive","3.46"))) {
+  v <- R4("R1", z[1], "prod_sqrtm_vs_L1")
+  chk("appendix.Rmd WebD", sprintf("R04 csv: R1/%s/prod_sqrtm_vs_L1", z[1]),
+      z[2], sprintf("%.2f", v), eqd(as.numeric(z[2]), v, 2))
+}
+# Design A (standard) product-error ratio vs L1: L2=0.88, L3=0.90, L4=3.18
+for (z in list(c("L2_smooth","0.88"), c("L3_adaptive","0.90"), c("L4_aggressive","3.18"))) {
+  v <- R4("standard", z[1], "prod_sqrtm_vs_L1")
+  chk("appendix.Rmd WebD", sprintf("R04 csv: standard/%s/prod_sqrtm_vs_L1", z[1]),
+      z[2], sprintf("%.2f", v), eqd(as.numeric(z[2]), v, 2))
+}
+# L1 parametric baseline is exactly 1 in both designs (the reference)
+for (scen in c("R1","standard")) {
+  v <- R4(scen, "L1_param", "prod_sqrtm_vs_L1")
+  chk("appendix.Rmd WebD", sprintf("R04 csv: %s/L1/prod_sqrtm_vs_L1 (baseline)", scen),
+      "1.00", sprintf("%.2f", v), eqd(1.00, v, 2))
+}
+# truth_join == "OK" for every rung x design (used to assert the join succeeds)
+for (scen in c("R1","standard")) for (rung in c("L1_param","L2_smooth","L3_adaptive","L4_aggressive")) {
+  tj <- if (!is.null(r04)) r04$truth_join[r04$scenario == scen & r04$rung == rung] else NA_character_
+  chk("appendix.Rmd WebD", sprintf("R04 csv: %s/%s/truth_join", scen, rung),
+      "OK", as.character(tj), identical(as.character(tj), "OK"))
+}
+# =====================================================================
+# (R07) Web Appendix F "Robustness to informative selection" subsection
+# Source: results/arc/R07_informative_summary.csv
+#   columns: rho, rung, method, bias, coverage, mcse_cov, w_cv, se_ratio
+# Methods: "Fully-Aware-CF-unwt" (certified de-weighted OOF),
+#          "Fully-Aware-CF-wt"   (weighted-OOF comparator).
+# Conclusions anchored on L3; L2 reported alongside.
+# =====================================================================
+r07 <- read.csv("results/arc/R07_informative_summary.csv", stringsAsFactors = FALSE)
+R7 <- function(rho, rung, method, col) {
+  v <- r07[[col]][r07$rho == rho & r07$rung == rung & r07$method == method]
+  if (length(v) == 1) v else NA_real_
+}
+
+# --- within-fold weight spread w_cv rises with rho (shared across arms/rungs) ---
+# Quoted from L3_adaptive unwt; identical at L2 and across methods for a given rho.
+for (z in list(c(0,"0.32"), c(0.3,"0.38"), c(0.6,"0.55"), c(0.9,"0.81"))) {
+  rho <- as.numeric(z[[1]])
+  chk("appendix.Rmd WebF-R07", sprintf("R07 csv: %s/L3_adaptive/CF-unwt w_cv", rho),
+      z[[2]], sprintf("%.2f", R7(rho,"L3_adaptive","Fully-Aware-CF-unwt","w_cv")),
+      eqd(as.numeric(z[[2]]), R7(rho,"L3_adaptive","Fully-Aware-CF-unwt","w_cv"), 2))
+}
+
+# --- L3 de-weighted (certified) coverage across the sweep ---
+for (z in list(c(0,"0.941"), c(0.3,"0.938"), c(0.6,"0.929"), c(0.9,"0.929"))) {
+  rho <- as.numeric(z[[1]])
+  chk("appendix.Rmd WebF-R07", sprintf("R07 csv: %s/L3_adaptive/CF-unwt coverage", rho),
+      z[[2]], sprintf("%.3f", R7(rho,"L3_adaptive","Fully-Aware-CF-unwt","coverage")),
+      eqd(as.numeric(z[[2]]), R7(rho,"L3_adaptive","Fully-Aware-CF-unwt","coverage"), 3))
+}
+
+# --- L3 de-weighted se_ratio near unity at milder settings ---
+chk("appendix.Rmd WebF-R07", "R07 csv: 0/L3_adaptive/CF-unwt se_ratio",
+    "1.01", sprintf("%.2f", R7(0,"L3_adaptive","Fully-Aware-CF-unwt","se_ratio")),
+    eqd(1.01, R7(0,"L3_adaptive","Fully-Aware-CF-unwt","se_ratio"), 2))
+chk("appendix.Rmd WebF-R07", "R07 csv: 0.3/L3_adaptive/CF-unwt se_ratio",
+    "1.00", sprintf("%.2f", R7(0.3,"L3_adaptive","Fully-Aware-CF-unwt","se_ratio")),
+    eqd(1.00, R7(0.3,"L3_adaptive","Fully-Aware-CF-unwt","se_ratio"), 2))
+
+# --- L3 de-weighted |bias| declines from rho=0 to rho=0.9 ---
+chk("appendix.Rmd WebF-R07", "R07 csv: 0/L3_adaptive/CF-unwt |bias|",
+    "0.012", sprintf("%.3f", abs(R7(0,"L3_adaptive","Fully-Aware-CF-unwt","bias"))),
+    eqd(0.012, abs(R7(0,"L3_adaptive","Fully-Aware-CF-unwt","bias")), 3))
+chk("appendix.Rmd WebF-R07", "R07 csv: 0.9/L3_adaptive/CF-unwt |bias|",
+    "0.006", sprintf("%.3f", abs(R7(0.9,"L3_adaptive","Fully-Aware-CF-unwt","bias"))),
+    eqd(0.006, abs(R7(0.9,"L3_adaptive","Fully-Aware-CF-unwt","bias")), 3))
+
+# --- L3 weighted-OOF comparator: coverage and |bias| at endpoints ---
+chk("appendix.Rmd WebF-R07", "R07 csv: 0/L3_adaptive/CF-wt coverage",
+    "0.944", sprintf("%.3f", R7(0,"L3_adaptive","Fully-Aware-CF-wt","coverage")),
+    eqd(0.944, R7(0,"L3_adaptive","Fully-Aware-CF-wt","coverage"), 3))
+chk("appendix.Rmd WebF-R07", "R07 csv: 0.9/L3_adaptive/CF-wt coverage",
+    "0.928", sprintf("%.3f", R7(0.9,"L3_adaptive","Fully-Aware-CF-wt","coverage")),
+    eqd(0.928, R7(0.9,"L3_adaptive","Fully-Aware-CF-wt","coverage"), 3))
+chk("appendix.Rmd WebF-R07", "R07 csv: 0/L3_adaptive/CF-wt |bias|",
+    "0.010", sprintf("%.3f", abs(R7(0,"L3_adaptive","Fully-Aware-CF-wt","bias"))),
+    eqd(0.010, abs(R7(0,"L3_adaptive","Fully-Aware-CF-wt","bias")), 3))
+chk("appendix.Rmd WebF-R07", "R07 csv: 0.9/L3_adaptive/CF-wt |bias|",
+    "0.008", sprintf("%.3f", abs(R7(0.9,"L3_adaptive","Fully-Aware-CF-wt","bias"))),
+    eqd(0.008, abs(R7(0.9,"L3_adaptive","Fully-Aware-CF-wt","bias")), 3))
+
+# --- L2 de-weighted coverage across the sweep ---
+for (z in list(c(0,"0.945"), c(0.3,"0.943"), c(0.6,"0.919"), c(0.9,"0.928"))) {
+  rho <- as.numeric(z[[1]])
+  chk("appendix.Rmd WebF-R07", sprintf("R07 csv: %s/L2_smooth/CF-unwt coverage", rho),
+      z[[2]], sprintf("%.3f", R7(rho,"L2_smooth","Fully-Aware-CF-unwt","coverage")),
+      eqd(as.numeric(z[[2]]), R7(rho,"L2_smooth","Fully-Aware-CF-unwt","coverage"), 3))
+}
+# --- L2 de-weighted |bias| declines from rho=0 to rho=0.9 ---
+chk("appendix.Rmd WebF-R07", "R07 csv: 0/L2_smooth/CF-unwt |bias|",
+    "0.014", sprintf("%.3f", abs(R7(0,"L2_smooth","Fully-Aware-CF-unwt","bias"))),
+    eqd(0.014, abs(R7(0,"L2_smooth","Fully-Aware-CF-unwt","bias")), 3))
+chk("appendix.Rmd WebF-R07", "R07 csv: 0.9/L2_smooth/CF-unwt |bias|",
+    "0.007", sprintf("%.3f", abs(R7(0.9,"L2_smooth","Fully-Aware-CF-unwt","bias"))),
+    eqd(0.007, abs(R7(0.9,"L2_smooth","Fully-Aware-CF-unwt","bias")), 3))
+
+# --- "each MCSE <= 0.009" claim: max mcse_cov over BOTH arms, BOTH rungs, all rho ---
+mcse_all <- with(r07,
+  mcse_cov[rung %in% c("L2_smooth","L3_adaptive") &
+           method %in% c("Fully-Aware-CF-unwt","Fully-Aware-CF-wt")])
+chk("appendix.Rmd WebF-R07", "R07 csv: max mcse_cov over L2/L3, both CF arms, all rho",
+    "<=0.009", sprintf("%.4f", max(mcse_all)), round(max(mcse_all), 3) <= 0.009)
+# =====================================================================
+# (R11) Replication-variance check: jackknife vs Taylor linearization
+# Source: results/arc/R11_resampling_eff_summary.csv
+#   kind="jack"   rows -> mean_se_taylor, mean_se_jack, jk_lin_ratio,
+#                         coverage_taylor, coverage_jack (head-to-head)
+#   kind="taylor" rows -> standard coverage (IPW-svyglm comparator)
+# Quoted in appendix.Rmd Web Appendix F, "Replication variance" subsection.
+# =====================================================================
+r11 <- read.csv("results/arc/R11_resampling_eff_summary.csv", stringsAsFactors = FALSE)
+J <- function(scen, rung, method, col) {          # kind="jack" accessor
+  v <- r11[[col]][r11$kind == "jack" & r11$scenario == scen &
+                  r11$rung == rung & r11$method == method]
+  if (length(v) == 1) v else NA_real_
+}
+T11 <- function(scen, rung, method, col) {        # kind="taylor" accessor
+  v <- r11[[col]][r11$kind == "taylor" & r11$scenario == scen &
+                  r11$rung == rung & r11$method == method]
+  if (length(v) == 1) v else NA_real_
+}
+
+# all eight jk/lin SE ratios round to 1.00, with max deviation 1.004
+rat <- c(J("standard","L1_param","Fully-Aware","jk_lin_ratio"),
+         J("standard","L1_param","Fully-Aware-CF","jk_lin_ratio"),
+         J("standard","L3_adaptive","Fully-Aware","jk_lin_ratio"),
+         J("standard","L3_adaptive","Fully-Aware-CF","jk_lin_ratio"),
+         J("R1","L1_param","Fully-Aware","jk_lin_ratio"),
+         J("R1","L1_param","Fully-Aware-CF","jk_lin_ratio"),
+         J("R1","L3_adaptive","Fully-Aware","jk_lin_ratio"),
+         J("R1","L3_adaptive","Fully-Aware-CF","jk_lin_ratio"))
+chk("appendix.Rmd WebF jack", "R11 csv jack: all 8 jk_lin_ratio round to 1.00",
+    "1.00", sprintf("%.2f", max(rat)), all(round(rat, 2) == 1.00))
+chk("appendix.Rmd WebF jack", "R11 csv jack: max jk_lin_ratio (R1/L3/Fully-Aware-CF)",
+    "1.004", sprintf("%.3f", max(rat)),
+    eqd(1.004, max(rat), 3) && which.max(rat) == 8L)
+
+# single-fit Fully-Aware: jackknife reproduces linearization SE exactly (ratio 1.000)
+chk("appendix.Rmd WebF jack", "R11 csv jack: standard/L1/Fully-Aware jk_lin_ratio",
+    "1.000", sprintf("%.3f", J("standard","L1_param","Fully-Aware","jk_lin_ratio")),
+    eqd(1.000, J("standard","L1_param","Fully-Aware","jk_lin_ratio"), 3))
+chk("appendix.Rmd WebF jack", "R11 csv jack: R1/L3/Fully-Aware jk_lin_ratio",
+    "1.000", sprintf("%.3f", J("R1","L3_adaptive","Fully-Aware","jk_lin_ratio")),
+    eqd(1.000, J("R1","L3_adaptive","Fully-Aware","jk_lin_ratio"), 3))
+
+# L1 Fully-Aware: linearization and jackknife coverages coincide
+chk("appendix.Rmd WebF jack", "R11 csv jack: standard/L1/Fully-Aware coverage_taylor",
+    "0.934", sprintf("%.3f", J("standard","L1_param","Fully-Aware","coverage_taylor")),
+    eqd(0.934, J("standard","L1_param","Fully-Aware","coverage_taylor"), 3))
+chk("appendix.Rmd WebF jack", "R11 csv jack: standard/L1/Fully-Aware coverage_jack",
+    "0.934", sprintf("%.3f", J("standard","L1_param","Fully-Aware","coverage_jack")),
+    eqd(0.934, J("standard","L1_param","Fully-Aware","coverage_jack"), 3))
+chk("appendix.Rmd WebF jack", "R11 csv jack: R1/L1/Fully-Aware coverage_taylor",
+    "0.930", sprintf("%.3f", J("R1","L1_param","Fully-Aware","coverage_taylor")),
+    eqd(0.930, J("R1","L1_param","Fully-Aware","coverage_taylor"), 3))
+chk("appendix.Rmd WebF jack", "R11 csv jack: R1/L1/Fully-Aware coverage_jack",
+    "0.930", sprintf("%.3f", J("R1","L1_param","Fully-Aware","coverage_jack")),
+    eqd(0.930, J("R1","L1_param","Fully-Aware","coverage_jack"), 3))
+
+# certified Fully-Aware-CF at L3: linearization vs jackknife coverage agree
+chk("appendix.Rmd WebF jack", "R11 csv jack: standard/L3/Fully-Aware-CF coverage_taylor",
+    "0.942", sprintf("%.3f", J("standard","L3_adaptive","Fully-Aware-CF","coverage_taylor")),
+    eqd(0.942, J("standard","L3_adaptive","Fully-Aware-CF","coverage_taylor"), 3))
+chk("appendix.Rmd WebF jack", "R11 csv jack: standard/L3/Fully-Aware-CF coverage_jack",
+    "0.940", sprintf("%.3f", J("standard","L3_adaptive","Fully-Aware-CF","coverage_jack")),
+    eqd(0.940, J("standard","L3_adaptive","Fully-Aware-CF","coverage_jack"), 3))
+chk("appendix.Rmd WebF jack", "R11 csv jack: R1/L3/Fully-Aware-CF coverage_taylor",
+    "0.930", sprintf("%.3f", J("R1","L3_adaptive","Fully-Aware-CF","coverage_taylor")),
+    eqd(0.930, J("R1","L3_adaptive","Fully-Aware-CF","coverage_taylor"), 3))
+chk("appendix.Rmd WebF jack", "R11 csv jack: R1/L3/Fully-Aware-CF coverage_jack",
+    "0.940", sprintf("%.3f", J("R1","L3_adaptive","Fully-Aware-CF","coverage_jack")),
+    eqd(0.940, J("R1","L3_adaptive","Fully-Aware-CF","coverage_jack"), 3))
+
+# honest caveat: single-fit Fully-Aware at L3 UNDER-covers (~0.90)
+chk("appendix.Rmd WebF jack", "R11 csv jack: standard/L3/Fully-Aware coverage_taylor",
+    "0.896", sprintf("%.3f", J("standard","L3_adaptive","Fully-Aware","coverage_taylor")),
+    eqd(0.896, J("standard","L3_adaptive","Fully-Aware","coverage_taylor"), 3))
+chk("appendix.Rmd WebF jack", "R11 csv jack: R1/L3/Fully-Aware coverage_taylor",
+    "0.898", sprintf("%.3f", J("R1","L3_adaptive","Fully-Aware","coverage_taylor")),
+    eqd(0.898, J("R1","L3_adaptive","Fully-Aware","coverage_taylor"), 3))
+
+# IPW-svyglm comparator on the same design-EIF machinery: near-nominal at L3
+chk("appendix.Rmd WebF jack", "R11 csv taylor: standard/L3/IPW-svyglm coverage",
+    "0.934", sprintf("%.3f", T11("standard","L3_adaptive","IPW-svyglm","coverage")),
+    eqd(0.934, T11("standard","L3_adaptive","IPW-svyglm","coverage"), 3))
+chk("appendix.Rmd WebF jack", "R11 csv taylor: R1/L3/IPW-svyglm coverage",
+    "0.928", sprintf("%.3f", T11("R1","L3_adaptive","IPW-svyglm","coverage")),
+    eqd(0.928, T11("R1","L3_adaptive","IPW-svyglm","coverage"), 3))
+
+# =====================================================================
+# (R05) Web Appendix F real-data isolation: floor and de-weighting are
+#       not the rescue.
+# Source: results/arc/R05_point_divergence.csv (R05 harmonized-floor run).
+#   columns: example, rung, b_FA, b_FA_h05, b_CF, b_CF_wOOF,
+#            d_FA_CF, d_FA_FAh05, d_CFwOOF_CF, d_CFwOOF_FA, cfwoof_closer_to
+#   examples: E3 (e-cigarette), E4 (GDM hardened). Rungs L1-L4.
+# Conclusions anchored on L3; weighted-OOF (b_CF_wOOF) is NA at L1 (non-convergence).
+# =====================================================================
+r05 <- read.csv("results/arc/R05_point_divergence.csv", stringsAsFactors = FALSE)
+R5 <- function(ex, rung, col) {
+  v <- r05[[col]][r05$example == ex & r05$rung == rung]
+  if (length(v) == 1) v else NA_real_
+}
+
+# --- finding 1: the floor is NOT the rescue. d_FA_FAh05 == 0 in all 8 cells. ---
+for (ex in c("E3", "E4")) for (rg in c("L1_param","L2_smooth","L3_adaptive","L4_aggressive")) {
+  v <- R5(ex, rg, "d_FA_FAh05")
+  chk("appendix.Rmd WebF-R05", sprintf("R05 csv: %s/%s d_FA_FAh05 (floor-vs-default gap)", ex, rg),
+      "0.000", sprintf("%.3f", v), eqd(0.000, v, 3))
+}
+
+# --- finding 1: single-fit-vs-cross-fit divergence ladder (3 dp) ---
+# E3: 0.013, 0.003, 0.064, 0.157 ; E4: 0.017, 0.021, 0.026, 0.313
+for (z in list(c("E3","L1_param","0.013"), c("E3","L2_smooth","0.003"),
+               c("E3","L3_adaptive","0.064"), c("E3","L4_aggressive","0.157"),
+               c("E4","L1_param","0.017"), c("E4","L2_smooth","0.021"),
+               c("E4","L3_adaptive","0.026"), c("E4","L4_aggressive","0.313"))) {
+  v <- R5(z[1], z[2], "d_FA_CF")
+  chk("appendix.Rmd WebF-R05", sprintf("R05 csv: %s/%s d_FA_CF", z[1], z[2]),
+      z[3], sprintf("%.3f", v), eqd(as.numeric(z[3]), v, 3))
+}
+
+# --- finding 2: at L3 the de-weighting conclusion anchor (FA, CF, CF-wOOF, 3 dp) ---
+# E3: FA 0.090, CF 0.026, wOOF 0.025 ; E4: FA 0.026, CF -0.001, wOOF 0.001
+for (z in list(c("E3","b_FA","0.090"), c("E3","b_CF","0.026"), c("E3","b_CF_wOOF","0.025"),
+               c("E4","b_FA","0.026"), c("E4","b_CF","-0.001"), c("E4","b_CF_wOOF","0.001"))) {
+  v <- R5(z[1], "L3_adaptive", z[2])
+  chk("appendix.Rmd WebF-R05", sprintf("R05 csv: %s/L3 %s", z[1], z[2]),
+      z[3], sprintf("%.3f", v), eqd(as.numeric(z[3]), v, 3))
+}
+# --- finding 2: at L3 the weighted-OOF arm lands close to CF, far from FA (3 dp) ---
+chk("appendix.Rmd WebF-R05", "R05 csv: E3/L3 d_CFwOOF_CF (wOOF-to-CF gap)",
+    "0.001", sprintf("%.3f", R5("E3","L3_adaptive","d_CFwOOF_CF")),
+    eqd(0.001, R5("E3","L3_adaptive","d_CFwOOF_CF"), 3))
+chk("appendix.Rmd WebF-R05", "R05 csv: E3/L3 d_CFwOOF_FA (wOOF-to-single-fit gap)",
+    "0.065", sprintf("%.3f", R5("E3","L3_adaptive","d_CFwOOF_FA")),
+    eqd(0.065, R5("E3","L3_adaptive","d_CFwOOF_FA"), 3))
+chk("appendix.Rmd WebF-R05", "R05 csv: E4/L3 d_CFwOOF_CF (wOOF-to-CF gap)",
+    "0.002", sprintf("%.3f", R5("E4","L3_adaptive","d_CFwOOF_CF")),
+    eqd(0.002, R5("E4","L3_adaptive","d_CFwOOF_CF"), 3))
+# --- finding 2: cfwoof_closer_to == "CF" in every converged (non-NA) cell ---
+{
+  flags <- r05$cfwoof_closer_to[!is.na(r05$cfwoof_closer_to)]
+  chk("appendix.Rmd WebF-R05", "R05 csv: cfwoof_closer_to == CF in all 6 converged cells",
+      "CF (all)", sprintf("CF x%d", length(flags)),
+      length(flags) == 6L && all(flags == "CF"))
+}
+
+# --- finding 3: weighted-OOF FAILS TO CONVERGE at L1 (b_CF_wOOF is NA), both examples ---
+chk("appendix.Rmd WebF-R05", "R05 csv: E3/L1 b_CF_wOOF is NA (non-convergence)",
+    "--- (NA)", as.character(R5("E3","L1_param","b_CF_wOOF")),
+    is.na(R5("E3","L1_param","b_CF_wOOF")))
+chk("appendix.Rmd WebF-R05", "R05 csv: E4/L1 b_CF_wOOF is NA (non-convergence)",
+    "--- (NA)", as.character(R5("E4","L1_param","b_CF_wOOF")),
+    is.na(R5("E4","L1_param","b_CF_wOOF")))
+
+# --- finding 3: weighted-OOF carries larger split-to-split SD than unweighted CF. ---
+# Source for split SD is the per-arm summary CSV (b_split_sd column).
+{
+  r05s <- read.csv("results/arc/R05_summary.csv", stringsAsFactors = FALSE)
+  S5 <- function(ex, rung, method, col) {
+    v <- r05s[[col]][r05s$example == ex & r05s$rung == rung & r05s$method == method]
+    if (length(v) == 1) v else NA_real_
+  }
+  # quoted L3 split SDs: E3 wOOF 0.0066 vs CF 0.0052 ; E4 wOOF 0.0063 vs CF 0.0039
+  chk("appendix.Rmd WebF-R05", "R05 summary: E3/L3 Fully-Aware-CF-wOOF b_split_sd",
+      "0.0066", sprintf("%.4f", S5("E3","L3_adaptive","Fully-Aware-CF-wOOF","b_split_sd")),
+      eqd(0.0066, S5("E3","L3_adaptive","Fully-Aware-CF-wOOF","b_split_sd"), 4))
+  chk("appendix.Rmd WebF-R05", "R05 summary: E3/L3 Fully-Aware-CF b_split_sd",
+      "0.0052", sprintf("%.4f", S5("E3","L3_adaptive","Fully-Aware-CF","b_split_sd")),
+      eqd(0.0052, S5("E3","L3_adaptive","Fully-Aware-CF","b_split_sd"), 4))
+  chk("appendix.Rmd WebF-R05", "R05 summary: E4/L3 Fully-Aware-CF-wOOF b_split_sd",
+      "0.0063", sprintf("%.4f", S5("E4","L3_adaptive","Fully-Aware-CF-wOOF","b_split_sd")),
+      eqd(0.0063, S5("E4","L3_adaptive","Fully-Aware-CF-wOOF","b_split_sd"), 4))
+  chk("appendix.Rmd WebF-R05", "R05 summary: E4/L3 Fully-Aware-CF b_split_sd",
+      "0.0039", sprintf("%.4f", S5("E4","L3_adaptive","Fully-Aware-CF","b_split_sd")),
+      eqd(0.0039, S5("E4","L3_adaptive","Fully-Aware-CF","b_split_sd"), 4))
+  # wOOF split SD strictly exceeds CF split SD in ALL 6 converged cells
+  bigger <- TRUE
+  for (ex in c("E3","E4")) for (rg in c("L2_smooth","L3_adaptive","L4_aggressive")) {
+    w <- S5(ex, rg, "Fully-Aware-CF-wOOF", "b_split_sd")
+    c <- S5(ex, rg, "Fully-Aware-CF",      "b_split_sd")
+    if (!(is.finite(w) && is.finite(c) && w > c)) bigger <- FALSE
+  }
+  chk("appendix.Rmd WebF-R05", "R05 summary: wOOF b_split_sd > CF b_split_sd in all 6 converged cells",
+      "wOOF > CF (all)", as.character(bigger), isTRUE(bigger))
+}
+
+# --- scope/floor: harmonized floor is 0.05 for both single-fit-h05 and OOF ---
+{
+  r05d <- read.csv("results/arc/R05_diagnostics.csv", stringsAsFactors = FALSE)
+  chk("appendix.Rmd WebF-R05", "R05 diagnostics: harmonized floor fa_gbound == 0.05 (all cells)",
+      "0.05", sprintf("%.2f", unique(r05d$fa_gbound)[1]),
+      length(unique(r05d$fa_gbound)) == 1L && eqd(0.05, unique(r05d$fa_gbound)[1], 2))
+  chk("appendix.Rmd WebF-R05", "R05 diagnostics: OOF floor g_oof_bound == 0.05 (all cells)",
+      "0.05", sprintf("%.2f", unique(r05d$g_oof_bound)[1]),
+      length(unique(r05d$g_oof_bound)) == 1L && eqd(0.05, unique(r05d$g_oof_bound)[1], 2))
+}
+
+
+# =====================================================================
+# (R06) NHANES headline Table 2 = multiple imputation (m=40, Rubin).
+# Source: results/arc/R06_mi_summary.csv. Single-imputation comparison from
+# local_preview_summary.csv (already read as `lp`, accessor L()). Covers the
+# Table-2 RD columns, the Section 6 prose point estimates (same `b` cells), and
+# the Web Appendix F MI table (FMI + MI RD + single-imp RD).
+# =====================================================================
+r06m_path <- "results/arc/R06_mi_summary.csv"
+r06m <- if (file.exists(r06m_path)) read.csv(r06m_path, stringsAsFactors = FALSE) else NULL
+M6 <- function(ex, method, col) {
+  if (is.null(r06m)) return(NA_real_)
+  v <- r06m[[col]][r06m$example == ex & r06m$method == method]
+  if (length(v) == 1) v else NA_real_
+}
+
+# ---- Table 2 + Web-F MI table + Sec 6 prose: Fully-Aware-CF MI RD (b,lcl,ucl) 3 dp ----
+for (z in list(c("E1","0.036","0.021","0.052"), c("E2","0.087","0.070","0.104"),
+               c("E3","0.033","-0.009","0.075"), c("E4","0.002","-0.047","0.051"))) {
+  ex <- z[1]
+  chk("Table2/WebF-mi/Sec6", sprintf("R06 MI: %s/Fully-Aware-CF b", ex),
+      z[2], sprintf("%.3f", M6(ex,"Fully-Aware-CF","b")), eqd(as.numeric(z[2]), M6(ex,"Fully-Aware-CF","b"), 3))
+  chk("Table2/WebF-mi", sprintf("R06 MI: %s/Fully-Aware-CF lcl", ex),
+      z[3], sprintf("%.3f", M6(ex,"Fully-Aware-CF","lcl")), eqd(as.numeric(z[3]), M6(ex,"Fully-Aware-CF","lcl"), 3))
+  chk("Table2/WebF-mi", sprintf("R06 MI: %s/Fully-Aware-CF ucl", ex),
+      z[4], sprintf("%.3f", M6(ex,"Fully-Aware-CF","ucl")), eqd(as.numeric(z[4]), M6(ex,"Fully-Aware-CF","ucl"), 3))
+}
+# ---- Table 2 + Sec 6 prose: Non-Aware MI RD (b,lcl,ucl) 3 dp ----
+for (z in list(c("E1","0.035","0.024","0.047"), c("E2","0.071","0.059","0.084"),
+               c("E3","0.070","0.040","0.100"), c("E4","0.026","-0.010","0.063"))) {
+  ex <- z[1]
+  chk("Table2/Sec6", sprintf("R06 MI: %s/Non-Aware b", ex),
+      z[2], sprintf("%.3f", M6(ex,"Non-Aware","b")), eqd(as.numeric(z[2]), M6(ex,"Non-Aware","b"), 3))
+  chk("Table2", sprintf("R06 MI: %s/Non-Aware lcl", ex),
+      z[3], sprintf("%.3f", M6(ex,"Non-Aware","lcl")), eqd(as.numeric(z[3]), M6(ex,"Non-Aware","lcl"), 3))
+  chk("Table2", sprintf("R06 MI: %s/Non-Aware ucl", ex),
+      z[4], sprintf("%.3f", M6(ex,"Non-Aware","ucl")), eqd(as.numeric(z[4]), M6(ex,"Non-Aware","ucl"), 3))
+}
+# ---- Table 2 five-arm decomposition: Partially-Aware / Fully-Aware / Fully-Aware-CV MI RD (3 dp) ----
+t2arms <- list(
+  "Partially-Aware" = list(c("E1","0.035","0.020","0.052"), c("E2","0.093","0.070","0.116"),
+                           c("E3","0.030","-0.025","0.086"), c("E4","0.023","-0.028","0.074")),
+  "Fully-Aware"     = list(c("E1","0.035","0.020","0.051"), c("E2","0.093","0.069","0.117"),
+                           c("E3","0.030","-0.021","0.082"), c("E4","0.023","-0.029","0.075")),
+  "Fully-Aware-CV"  = list(c("E1","0.035","0.020","0.051"), c("E2","0.086","0.070","0.102"),
+                           c("E3","0.040","-0.001","0.081"), c("E4","0.006","-0.040","0.052")))
+for (arm in names(t2arms)) for (z in t2arms[[arm]]) {
+  ex <- z[1]
+  chk("Table2-5arm", sprintf("R06 MI: %s/%s b", ex, arm),
+      z[2], sprintf("%.3f", M6(ex,arm,"b")), eqd(as.numeric(z[2]), M6(ex,arm,"b"), 3))
+  chk("Table2-5arm", sprintf("R06 MI: %s/%s lcl", ex, arm),
+      z[3], sprintf("%.3f", M6(ex,arm,"lcl")), eqd(as.numeric(z[3]), M6(ex,arm,"lcl"), 3))
+  chk("Table2-5arm", sprintf("R06 MI: %s/%s ucl", ex, arm),
+      z[4], sprintf("%.3f", M6(ex,arm,"ucl")), eqd(as.numeric(z[4]), M6(ex,arm,"ucl"), 3))
+}
+# ---- Web Appendix F MI table: FMI per example (3 dp) ----
+for (z in list(c("E1","0.042"), c("E2","0.120"), c("E3","0.124"), c("E4","0.053"))) {
+  chk("appendix.Rmd WebF-mi", sprintf("R06 MI: %s/Fully-Aware-CF fmi", z[1]),
+      z[2], sprintf("%.3f", M6(z[1],"Fully-Aware-CF","fmi")), eqd(as.numeric(z[2]), M6(z[1],"Fully-Aware-CF","fmi"), 3))
+}
+# ---- prose claim: FMI never exceeds 0.13 ----
+{
+  mx <- max(sapply(c("E1","E2","E3","E4"), function(e) M6(e,"Fully-Aware-CF","fmi")))
+  chk("appendix.Rmd WebF-mi", "R06 MI: max Fully-Aware-CF FMI <= 0.13",
+      "<= 0.13", sprintf("%.3f", mx), is.finite(mx) && mx <= 0.13)
+}
+# ---- prose claim: MI vs single-imp CF agree within 0.005 (b) ----
+{
+  dd <- sapply(c("E1","E2","E3","E4"), function(e) abs(M6(e,"Fully-Aware-CF","b") - L(e,"Fully-Aware-CF","b")))
+  chk("appendix.Rmd WebF-mi", "R06 MI: |MI - single-imp| CF b <= 0.005 (all examples)",
+      "<= 0.005", sprintf("%.4f", max(dd)), all(is.finite(dd)) && max(dd) <= 0.005 + 1e-9)
+}
+# ---- Web-F MI table: single-imputation CF RD (from local_preview), 3 dp ----
+for (z in list(c("E1","0.036","0.021","0.051"), c("E2","0.089","0.073","0.104"),
+               c("E3","0.038","-0.003","0.078"), c("E4","0.006","-0.042","0.053"))) {
+  ex <- z[1]
+  chk("appendix.Rmd WebF-mi", sprintf("local_preview: %s/Fully-Aware-CF b (single imp)", ex),
+      z[2], sprintf("%.3f", L(ex,"Fully-Aware-CF","b")), eqd(as.numeric(z[2]), L(ex,"Fully-Aware-CF","b"), 3))
+  chk("appendix.Rmd WebF-mi", sprintf("local_preview: %s/Fully-Aware-CF lcl (single imp)", ex),
+      z[3], sprintf("%.3f", L(ex,"Fully-Aware-CF","lcl")), eqd(as.numeric(z[3]), L(ex,"Fully-Aware-CF","lcl"), 3))
+  chk("appendix.Rmd WebF-mi", sprintf("local_preview: %s/Fully-Aware-CF ucl (single imp)", ex),
+      z[4], sprintf("%.3f", L(ex,"Fully-Aware-CF","ucl")), eqd(as.numeric(z[4]), L(ex,"Fully-Aware-CF","ucl"), 3))
+}
+
+# =====================================================================
+# (R09) Web Appendix F causal-validity sensitivity analyses (Table webF_sens).
+# Sources: results/arc/R09_sensitivity_delta.csv (Fully-Aware-CF arm),
+#          results/arc/R09_design_check.csv (SDMVSTRA cross-cycle check).
+# =====================================================================
+r09 <- read.csv("results/arc/R09_sensitivity_delta.csv", stringsAsFactors = FALSE)
+r09 <- r09[r09$arm == "Fully-Aware-CF", ]
+R9  <- function(cell, col) r09[r09$cell == cell, col][1]
+for (z in list(c("E1_noPHQ","0.036","0.040"), c("E2_noBMI","0.089","0.095"),
+               c("E4_noBMI","0.006","0.031"))) {
+  chk("appendix.Rmd WebF-sens", sprintf("R09: %s/CF b_main", z[1]),
+      z[2], sprintf("%.3f", R9(z[1],"b_main")), eqd(as.numeric(z[2]), R9(z[1],"b_main"), 3))
+  chk("appendix.Rmd WebF-sens", sprintf("R09: %s/CF b_sens", z[1]),
+      z[3], sprintf("%.3f", R9(z[1],"b_sens")), eqd(as.numeric(z[3]), R9(z[1],"b_sens"), 3))
+}
+chk("appendix.Rmd WebF-sens", "R09: no CF conclusion flips", "FALSE",
+    as.character(any(as.logical(r09$conclusion_flip))), !any(as.logical(r09$conclusion_flip)))
+r09d <- read.csv("results/arc/R09_design_check.csv", stringsAsFactors = FALSE)
+chk("appendix.Rmd WebF-sens", "R09: design check all overlap_clean", "TRUE",
+    as.character(all(as.logical(r09d$overlap_clean))), all(as.logical(r09d$overlap_clean)))
+chk("appendix.Rmd WebF-sens", "R09: max cycles spanned = 1", "1",
+    as.character(max(r09d$max_cycles_spanned)), max(r09d$max_cycles_spanned) == 1)
+
+# =====================================================================
+# (R10) Web Appendix F "Finite-population correction and the first-stage
+#       sampling fraction" subsection.
+# Sources: results/arc/R10_fpc_partA_summary.csv      (Panel A: FPC on/off)
+#          results/arc/R10_fpc_fraction_sweep.csv     (Panel B: f-sweep)
+# Design B = 'R1'. SE/SD (se_ratio) quoted at 3 dp; coverage at 3 dp; f at 3 dp.
+# FPC conclusion anchored on se_ratio CALIBRATION; sub-nominal L1 coverage is the
+# Web-Appendix-D Kang-Schafer misspecification bias, not a variance defect.
+# =====================================================================
+r10a <- read.csv("results/arc/R10_fpc_partA_summary.csv",   stringsAsFactors = FALSE)
+r10b <- read.csv("results/arc/R10_fpc_fraction_sweep.csv", stringsAsFactors = FALSE)
+R10A <- function(rung, method, fpc, col) {
+  v <- r10a[[col]][r10a$rung == rung & r10a$method == method & r10a$fpc == fpc]
+  if (length(v) == 1) v else NA_real_
+}
+R10B <- function(J, col) {
+  v <- r10b[[col]][r10b$J == J]
+  if (length(v) == 1) v else NA_real_
+}
+
+# --- Panel A: SE/SD ratio, no-FPC (calibrated ~1) vs FPC (shrunk ~0.86) ---
+# L1 Fully-Aware
+chk("appendix.Rmd WebF-R10", "R10A: L1/Fully-Aware/no se_ratio",
+    "1.008", sprintf("%.3f", R10A("L1_param","Fully-Aware","no","se_ratio")),
+    eqd(1.008, R10A("L1_param","Fully-Aware","no","se_ratio"), 3))
+chk("appendix.Rmd WebF-R10", "R10A: L1/Fully-Aware/yes se_ratio",
+    "0.873", sprintf("%.3f", R10A("L1_param","Fully-Aware","yes","se_ratio")),
+    eqd(0.873, R10A("L1_param","Fully-Aware","yes","se_ratio"), 3))
+# L1 Fully-Aware-CF
+chk("appendix.Rmd WebF-R10", "R10A: L1/Fully-Aware-CF/no se_ratio",
+    "0.983", sprintf("%.3f", R10A("L1_param","Fully-Aware-CF","no","se_ratio")),
+    eqd(0.983, R10A("L1_param","Fully-Aware-CF","no","se_ratio"), 3))
+chk("appendix.Rmd WebF-R10", "R10A: L1/Fully-Aware-CF/yes se_ratio",
+    "0.851", sprintf("%.3f", R10A("L1_param","Fully-Aware-CF","yes","se_ratio")),
+    eqd(0.851, R10A("L1_param","Fully-Aware-CF","yes","se_ratio"), 3))
+# L2 Fully-Aware
+chk("appendix.Rmd WebF-R10", "R10A: L2/Fully-Aware/no se_ratio",
+    "0.987", sprintf("%.3f", R10A("L2_smooth","Fully-Aware","no","se_ratio")),
+    eqd(0.987, R10A("L2_smooth","Fully-Aware","no","se_ratio"), 3))
+chk("appendix.Rmd WebF-R10", "R10A: L2/Fully-Aware/yes se_ratio",
+    "0.855", sprintf("%.3f", R10A("L2_smooth","Fully-Aware","yes","se_ratio")),
+    eqd(0.855, R10A("L2_smooth","Fully-Aware","yes","se_ratio"), 3))
+# L2 Fully-Aware-CF
+chk("appendix.Rmd WebF-R10", "R10A: L2/Fully-Aware-CF/no se_ratio",
+    "1.002", sprintf("%.3f", R10A("L2_smooth","Fully-Aware-CF","no","se_ratio")),
+    eqd(1.002, R10A("L2_smooth","Fully-Aware-CF","no","se_ratio"), 3))
+chk("appendix.Rmd WebF-R10", "R10A: L2/Fully-Aware-CF/yes se_ratio",
+    "0.867", sprintf("%.3f", R10A("L2_smooth","Fully-Aware-CF","yes","se_ratio")),
+    eqd(0.867, R10A("L2_smooth","Fully-Aware-CF","yes","se_ratio"), 3))
+
+# --- Panel A: coverage, L2 no-FPC (near nominal) vs FPC (anti-conservative) ---
+chk("appendix.Rmd WebF-R10", "R10A: L2/Fully-Aware/no coverage",
+    "0.939", sprintf("%.3f", R10A("L2_smooth","Fully-Aware","no","coverage")),
+    eqd(0.939, R10A("L2_smooth","Fully-Aware","no","coverage"), 3))
+chk("appendix.Rmd WebF-R10", "R10A: L2/Fully-Aware-CF/no coverage",
+    "0.936", sprintf("%.3f", R10A("L2_smooth","Fully-Aware-CF","no","coverage")),
+    eqd(0.936, R10A("L2_smooth","Fully-Aware-CF","no","coverage"), 3))
+chk("appendix.Rmd WebF-R10", "R10A: L2/Fully-Aware/yes coverage",
+    "0.898", sprintf("%.3f", R10A("L2_smooth","Fully-Aware","yes","coverage")),
+    eqd(0.898, R10A("L2_smooth","Fully-Aware","yes","coverage"), 3))
+chk("appendix.Rmd WebF-R10", "R10A: L2/Fully-Aware-CF/yes coverage",
+    "0.879", sprintf("%.3f", R10A("L2_smooth","Fully-Aware-CF","yes","coverage")),
+    eqd(0.879, R10A("L2_smooth","Fully-Aware-CF","yes","coverage"), 3))
+
+# --- Panel A: sub-nominal L1 no-FPC coverage (attributed to WebD misspec bias) ---
+chk("appendix.Rmd WebF-R10", "R10A: L1/Fully-Aware/no coverage (WebD misspec, not variance)",
+    "0.932", sprintf("%.3f", R10A("L1_param","Fully-Aware","no","coverage")),
+    eqd(0.932, R10A("L1_param","Fully-Aware","no","coverage"), 3))
+chk("appendix.Rmd WebF-R10", "R10A: L1/Fully-Aware-CF/no coverage (WebD misspec, not variance)",
+    "0.917", sprintf("%.3f", R10A("L1_param","Fully-Aware-CF","no","coverage")),
+    eqd(0.917, R10A("L1_param","Fully-Aware-CF","no","coverage"), 3))
+
+# --- Panel B: f-sweep (CF, L1, no-FPC). The prose quotes all four SE/SD ratios,
+#     the f endpoints (0.031, 0.250), and the coverage band endpoints (0.899, 0.946).
+#     Use a half-unit tolerance (boundary-safe at 3 dp; e.g. CSV se_ratio 0.9635,
+#     frac 0.0625 sit exactly on a rounding boundary).
+n3 <- function(w, x) is.finite(x) && abs(x - w) < 6e-4
+for (z in list(c(64,"0.964"), c(32,"0.975"), c(16,"0.997"), c(8,"0.993"))) {
+  Jv <- as.integer(z[[1]])
+  chk("appendix.Rmd WebF-R10", sprintf("R10B: J=%d se_ratio", Jv),
+      z[[2]], sprintf("%.4f", R10B(Jv,"se_ratio")), n3(as.numeric(z[[2]]), R10B(Jv,"se_ratio")))
+}
+chk("appendix.Rmd WebF-R10", "R10B: J=64 frac (0.031, prose endpoint)",
+    "0.031", sprintf("%.4f", R10B(64,"frac")), n3(0.031, R10B(64,"frac")))
+chk("appendix.Rmd WebF-R10", "R10B: J=8 frac (0.250, prose endpoint)",
+    "0.250", sprintf("%.4f", R10B(8,"frac")), n3(0.250, R10B(8,"frac")))
+chk("appendix.Rmd WebF-R10", "R10B: J=64 coverage (0.899, band low)",
+    "0.899", sprintf("%.3f", R10B(64,"coverage")), n3(0.899, R10B(64,"coverage")))
+chk("appendix.Rmd WebF-R10", "R10B: J=16 coverage (0.946, band high)",
+    "0.946", sprintf("%.3f", R10B(16,"coverage")), n3(0.946, R10B(16,"coverage")))
+# =====================================================================
+# (R02) Web Appendix F "Large-sample behaviour: the single-fit failure
+#       worsens with more clusters" subsection.
+# Source: results/arc/R02_largem_sweep_summary.csv  (Design A 'standard';
+#   base_m in {6,12,20,30}; columns scenario,rung,base_m,m_total,method,
+#   coverage,se_ratio,bias,...). 1000 reps/cell.
+# Coverage quoted 3 dp; se_ratio 2 dp; bias signed 3 dp. The single-fit
+# failure is anchored on L4/RF_shallow (strawmen); positive robustness on
+# L3; the L1 cross-fit coverage drift is attributed to the Web-Appendix-D
+# Kang-Schafer misspecification bias (se_ratio stays ~1.0), not a variance
+# defect. se_ratio values are quoted at 2 dp, so use a half-unit (5e-3)
+# tolerance to stay boundary-safe rather than eqd at 2 dp.
+# =====================================================================
+r02 <- read.csv("results/arc/R02_largem_sweep_summary.csv", stringsAsFactors = FALSE)
+R2g <- function(rung, m, method, col) {
+  v <- r02[[col]][r02$scenario == "standard" & r02$rung == rung &
+                  r02$base_m == m & r02$method == method]
+  if (length(v) == 1) v else NA_real_
+}
+# boundary-safe tolerance for 2-dp se_ratio quotes (half a unit at 2 dp)
+t2 <- function(w, x) is.finite(x) && abs(x - w) < 5e-3
+
+# ---- single-fit Fully-Aware L4 coverage degrades 0.200 -> 0.120 over m ----
+for (z in list(c(6,"0.200"), c(12,"0.169"), c(20,"0.127"), c(30,"0.120"))) {
+  m <- as.integer(z[[1]])
+  chk("appendix.Rmd WebF-R02", sprintf("R02: L4/m=%d/Fully-Aware coverage", m),
+      z[[2]], sprintf("%.3f", R2g("L4_aggressive", m, "Fully-Aware", "coverage")),
+      eqd(as.numeric(z[[2]]), R2g("L4_aggressive", m, "Fully-Aware", "coverage"), 3))
+}
+# ---- single-fit Fully-Aware L4 se_ratio collapses 0.17 -> 0.09 over m (2 dp, tol) ----
+for (z in list(c(6,"0.17"), c(12,"0.12"), c(20,"0.11"), c(30,"0.09"))) {
+  m <- as.integer(z[[1]])
+  chk("appendix.Rmd WebF-R02", sprintf("R02: L4/m=%d/Fully-Aware se_ratio", m),
+      z[[2]], sprintf("%.2f", R2g("L4_aggressive", m, "Fully-Aware", "se_ratio")),
+      t2(as.numeric(z[[2]]), R2g("L4_aggressive", m, "Fully-Aware", "se_ratio")))
+}
+# ---- single-fit Fully-Aware L4 bias shrinks slowly +0.115 -> +0.035 (signed 3 dp) ----
+for (z in list(c(6,"+0.115"), c(12,"+0.069"), c(20,"+0.047"), c(30,"+0.035"))) {
+  m <- as.integer(z[[1]])
+  chk("appendix.Rmd WebF-R02", sprintf("R02: L4/m=%d/Fully-Aware bias", m),
+      z[[2]], sprintf("%+.3f", R2g("L4_aggressive", m, "Fully-Aware", "bias")),
+      eqd(as.numeric(z[[2]]), R2g("L4_aggressive", m, "Fully-Aware", "bias"), 3))
+}
+# ---- single-fit Fully-Aware RF_shallow coverage stays in 0.071-0.095 band ----
+for (z in list(c(6,"0.082"), c(12,"0.095"), c(20,"0.073"), c(30,"0.071"))) {
+  m <- as.integer(z[[1]])
+  chk("appendix.Rmd WebF-R02", sprintf("R02: RF_shallow/m=%d/Fully-Aware coverage", m),
+      z[[2]], sprintf("%.3f", R2g("RF_shallow", m, "Fully-Aware", "coverage")),
+      eqd(as.numeric(z[[2]]), R2g("RF_shallow", m, "Fully-Aware", "coverage"), 3))
+}
+# ---- single-fit Fully-Aware RF_shallow se_ratio 0.20 -> 0.11 (2 dp, tol) ----
+for (z in list(c(6,"0.20"), c(12,"0.16"), c(20,"0.13"), c(30,"0.11"))) {
+  m <- as.integer(z[[1]])
+  chk("appendix.Rmd WebF-R02", sprintf("R02: RF_shallow/m=%d/Fully-Aware se_ratio", m),
+      z[[2]], sprintf("%.2f", R2g("RF_shallow", m, "Fully-Aware", "se_ratio")),
+      t2(as.numeric(z[[2]]), R2g("RF_shallow", m, "Fully-Aware", "se_ratio")))
+}
+# ---- certified Fully-Aware-CF L4: se_ratio 1.45/1.33/1.35/1.42 (2 dp, tol) ----
+for (z in list(c(6,"1.45"), c(12,"1.33"), c(20,"1.35"), c(30,"1.42"))) {
+  m <- as.integer(z[[1]])
+  chk("appendix.Rmd WebF-R02", sprintf("R02: L4/m=%d/Fully-Aware-CF se_ratio", m),
+      z[[2]], sprintf("%.2f", R2g("L4_aggressive", m, "Fully-Aware-CF", "se_ratio")),
+      t2(as.numeric(z[[2]]), R2g("L4_aggressive", m, "Fully-Aware-CF", "se_ratio")))
+}
+# ---- certified Fully-Aware-CF L4: coverage 0.986/0.980/0.989/0.992 (3 dp) ----
+for (z in list(c(6,"0.986"), c(12,"0.980"), c(20,"0.989"), c(30,"0.992"))) {
+  m <- as.integer(z[[1]])
+  chk("appendix.Rmd WebF-R02", sprintf("R02: L4/m=%d/Fully-Aware-CF coverage", m),
+      z[[2]], sprintf("%.3f", R2g("L4_aggressive", m, "Fully-Aware-CF", "coverage")),
+      eqd(as.numeric(z[[2]]), R2g("L4_aggressive", m, "Fully-Aware-CF", "coverage"), 3))
+}
+# ---- certified Fully-Aware-CF RF_shallow: se_ratio 1.40/1.32/1.31/1.37 (2 dp, tol) ----
+for (z in list(c(6,"1.40"), c(12,"1.32"), c(20,"1.31"), c(30,"1.37"))) {
+  m <- as.integer(z[[1]])
+  chk("appendix.Rmd WebF-R02", sprintf("R02: RF_shallow/m=%d/Fully-Aware-CF se_ratio", m),
+      z[[2]], sprintf("%.2f", R2g("RF_shallow", m, "Fully-Aware-CF", "se_ratio")),
+      t2(as.numeric(z[[2]]), R2g("RF_shallow", m, "Fully-Aware-CF", "se_ratio")))
+}
+# ---- certified Fully-Aware-CF RF_shallow: coverage 0.982/0.990/0.985/0.992 (3 dp) ----
+for (z in list(c(6,"0.982"), c(12,"0.990"), c(20,"0.985"), c(30,"0.992"))) {
+  m <- as.integer(z[[1]])
+  chk("appendix.Rmd WebF-R02", sprintf("R02: RF_shallow/m=%d/Fully-Aware-CF coverage", m),
+      z[[2]], sprintf("%.3f", R2g("RF_shallow", m, "Fully-Aware-CF", "coverage")),
+      eqd(as.numeric(z[[2]]), R2g("RF_shallow", m, "Fully-Aware-CF", "coverage"), 3))
+}
+# ---- adaptive L3 (robustness anchor): CF coverage 0.943/0.944/0.946/0.956 (3 dp) ----
+for (z in list(c(6,"0.943"), c(12,"0.944"), c(20,"0.946"), c(30,"0.956"))) {
+  m <- as.integer(z[[1]])
+  chk("appendix.Rmd WebF-R02", sprintf("R02: L3/m=%d/Fully-Aware-CF coverage", m),
+      z[[2]], sprintf("%.3f", R2g("L3_adaptive", m, "Fully-Aware-CF", "coverage")),
+      eqd(as.numeric(z[[2]]), R2g("L3_adaptive", m, "Fully-Aware-CF", "coverage"), 3))
+}
+# ---- L3 CF se_ratio calibrated, stays within 0.99-1.06 across the sweep ----
+{
+  rr <- sapply(c(6,12,20,30), function(m) R2g("L3_adaptive", m, "Fully-Aware-CF", "se_ratio"))
+  chk("appendix.Rmd WebF-R02", "R02: L3 Fully-Aware-CF se_ratio band within [0.99,1.06]",
+      "0.99-1.06", sprintf("[%.2f, %.2f]", min(rr), max(rr)),
+      all(is.finite(rr)) && min(rr) >= 0.99 - 5e-3 && max(rr) <= 1.06 + 5e-3)
+}
+# ---- HONEST CAVEAT: L1 CF coverage drifts 0.949 -> 0.848 as m grows (3 dp) ----
+for (z in list(c(6,"0.949"), c(12,"0.912"), c(20,"0.888"), c(30,"0.848"))) {
+  m <- as.integer(z[[1]])
+  chk("appendix.Rmd WebF-R02", sprintf("R02: L1/m=%d/Fully-Aware-CF coverage (WebD misspec)", m),
+      z[[2]], sprintf("%.3f", R2g("L1_param", m, "Fully-Aware-CF", "coverage")),
+      eqd(as.numeric(z[[2]]), R2g("L1_param", m, "Fully-Aware-CF", "coverage"), 3))
+}
+# ---- L1 caveat is a BIAS artifact, not a variance defect: CF se_ratio ~1.0 (0.99-1.05) ----
+{
+  rr <- sapply(c(6,12,20,30), function(m) R2g("L1_param", m, "Fully-Aware-CF", "se_ratio"))
+  chk("appendix.Rmd WebF-R02", "R02: L1 Fully-Aware-CF se_ratio band within [0.99,1.05] (calibrated)",
+      "0.99-1.05", sprintf("[%.2f, %.2f]", min(rr), max(rr)),
+      all(is.finite(rr)) && min(rr) >= 0.99 - 5e-3 && max(rr) <= 1.05 + 5e-3)
+}
+# ---- structural check: single-fit L4 coverage is strictly monotone decreasing in m ----
+{
+  cc <- sapply(c(6,12,20,30), function(m) R2g("L4_aggressive", m, "Fully-Aware", "coverage"))
+  chk("appendix.Rmd WebF-R02", "R02: L4 single-fit coverage monotone decreasing in m",
+      "monotone down", paste(sprintf("%.3f", cc), collapse=">"),
+      all(is.finite(cc)) && all(diff(cc) < 0))
+}
+# ---- m_total geometry: base_m x J = m_total with J=10 strata (60,120,200,300) ----
+for (z in list(c(6,60), c(12,120), c(20,200), c(30,300))) {
+  m <- as.integer(z[[1]]); mt <- as.integer(z[[2]])
+  chk("appendix.Rmd WebF-R02", sprintf("R02: m=%d -> m_total", m),
+      sprintf("%d", mt), sprintf("%d", as.integer(R2g("L4_aggressive", m, "Fully-Aware-CF", "m_total"))),
+      as.integer(R2g("L4_aggressive", m, "Fully-Aware-CF", "m_total")) == mt)
+}
+audit <- do.call(rbind, rows)
+out <- "results/inline_numbers_audit.csv"
+write.csv(audit, out, row.names = FALSE)
+
+cat(sprintf("\nInline-number audit: %d checks, %d pass, %d FAIL\n",
+            nrow(audit), sum(audit$ok), sum(!audit$ok)))
+cat("written ->", out, "\n\n")
+print(audit[, c("where","written","derived","ok")], row.names = FALSE)
+if (any(!audit$ok)) {
+  cat("\nMISMATCHES:\n"); print(audit[!audit$ok, ], row.names = FALSE)
+  quit(status = 1)
+}
+cat("\nAll quoted numbers reproduce from the locked source CSVs.\n")

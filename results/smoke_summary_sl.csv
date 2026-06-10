@@ -1,0 +1,11 @@
+"cell","DEFF","method","bias","emp_sd","mean_se","se_ratio","coverage","mcse_cov"
+"standard/complex/SL3",1.28,"Fully-Aware",0.006,0.049,0.044,0.91,0.94,0.034
+"standard/complex/SL3",1.28,"Fully-Aware-CF",0.006,0.048,0.047,0.977,0.94,0.034
+"standard/complex/SL3",1.28,"Fully-Aware-CV",0.004,0.05,0.044,0.891,0.96,0.028
+"standard/complex/SL3",1.28,"Partially-Aware",0.006,0.049,0.039,0.811,0.94,0.034
+"standard/complex/SL3",1.28,"Non-Aware",0.015,0.04,0.024,0.608,0.78,0.059
+"R1/complex/SL3",1.17,"Fully-Aware",0.01,0.029,0.034,1.164,0.96,0.028
+"R1/complex/SL3",1.17,"Fully-Aware-CF",0.014,0.03,0.036,1.218,0.98,0.02
+"R1/complex/SL3",1.17,"Fully-Aware-CV",0.009,0.031,0.034,1.105,0.98,0.02
+"R1/complex/SL3",1.17,"Partially-Aware",0.01,0.029,0.032,1.082,0.94,0.034
+"R1/complex/SL3",1.17,"Non-Aware",0.034,0.031,0.021,0.662,0.6,0.069

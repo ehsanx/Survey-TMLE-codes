@@ -1,0 +1,33 @@
+"example","label","rung","method","b","b_split_sd","se","df","lcl","ucl"
+"E3","E-cigarette use -> hypertension","L1_param","Fully-Aware",0.0189,7e-04,0.0204,30,-0.0228,0.0607
+"E3","E-cigarette use -> hypertension","L1_param","Fully-Aware-h05",0.0189,7e-04,0.0189,30,-0.0196,0.0575
+"E3","E-cigarette use -> hypertension","L1_param","Fully-Aware-CF",0.0323,0.0044,0.0185,30,-0.0055,0.0701
+"E3","E-cigarette use -> hypertension","L1_param","Fully-Aware-CF-wOOF",NA,NA,NA,30,NA,NA
+"E3","E-cigarette use -> hypertension","L2_smooth","Fully-Aware",0.0308,0.0032,0.0242,30,-0.0185,0.0802
+"E3","E-cigarette use -> hypertension","L2_smooth","Fully-Aware-h05",0.0308,0.0032,0.0201,30,-0.0101,0.0718
+"E3","E-cigarette use -> hypertension","L2_smooth","Fully-Aware-CF",0.0338,0.0044,0.0196,30,-0.0063,0.0739
+"E3","E-cigarette use -> hypertension","L2_smooth","Fully-Aware-CF-wOOF",0.0323,0.0089,0.0216,30,-0.0117,0.0763
+"E3","E-cigarette use -> hypertension","L3_adaptive","Fully-Aware",0.09,0.0077,0.0122,30,0.0651,0.1149
+"E3","E-cigarette use -> hypertension","L3_adaptive","Fully-Aware-h05",0.09,0.0077,0.0123,30,0.0649,0.1151
+"E3","E-cigarette use -> hypertension","L3_adaptive","Fully-Aware-CF",0.0262,0.0052,0.019,30,-0.0126,0.065
+"E3","E-cigarette use -> hypertension","L3_adaptive","Fully-Aware-CF-wOOF",0.0251,0.0066,0.02,30,-0.0158,0.066
+"E3","E-cigarette use -> hypertension","L4_aggressive","Fully-Aware",0.1523,0.0623,0.0096,30,0.1327,0.1719
+"E3","E-cigarette use -> hypertension","L4_aggressive","Fully-Aware-h05",0.1523,0.0623,0.0099,30,0.1321,0.1725
+"E3","E-cigarette use -> hypertension","L4_aggressive","Fully-Aware-CF",-0.0045,0.0115,0.0203,30,-0.046,0.037
+"E3","E-cigarette use -> hypertension","L4_aggressive","Fully-Aware-CF-wOOF",-0.0084,0.0118,0.0242,30,-0.0578,0.0409
+"E4","GDM history -> hypertension (hardened)","L1_param","Fully-Aware",0.0181,8e-04,0.0259,94,-0.0333,0.0695
+"E4","GDM history -> hypertension (hardened)","L1_param","Fully-Aware-h05",0.0181,8e-04,0.0224,94,-0.0264,0.0625
+"E4","GDM history -> hypertension (hardened)","L1_param","Fully-Aware-CF",0.0013,0.0045,0.0247,94,-0.0477,0.0503
+"E4","GDM history -> hypertension (hardened)","L1_param","Fully-Aware-CF-wOOF",NA,NA,NA,94,NA,NA
+"E4","GDM history -> hypertension (hardened)","L2_smooth","Fully-Aware",0.0231,0.001,0.0258,94,-0.0282,0.0744
+"E4","GDM history -> hypertension (hardened)","L2_smooth","Fully-Aware-h05",0.0231,0.001,0.0209,94,-0.0184,0.0647
+"E4","GDM history -> hypertension (hardened)","L2_smooth","Fully-Aware-CF",0.0022,0.0051,0.0219,94,-0.0414,0.0457
+"E4","GDM history -> hypertension (hardened)","L2_smooth","Fully-Aware-CF-wOOF",0.0042,0.0077,0.0252,94,-0.0458,0.0542
+"E4","GDM history -> hypertension (hardened)","L3_adaptive","Fully-Aware",0.0257,0.0069,0.012,94,0.0018,0.0496
+"E4","GDM history -> hypertension (hardened)","L3_adaptive","Fully-Aware-h05",0.0257,0.0069,0.0121,94,0.0017,0.0496
+"E4","GDM history -> hypertension (hardened)","L3_adaptive","Fully-Aware-CF",-6e-04,0.0039,0.0227,94,-0.0457,0.0445
+"E4","GDM history -> hypertension (hardened)","L3_adaptive","Fully-Aware-CF-wOOF",0.0012,0.0063,0.0236,94,-0.0457,0.0481
+"E4","GDM history -> hypertension (hardened)","L4_aggressive","Fully-Aware",-0.338,0.0199,0.0076,94,-0.353,-0.3229
+"E4","GDM history -> hypertension (hardened)","L4_aggressive","Fully-Aware-h05",-0.338,0.0199,0.0077,94,-0.3532,-0.3227
+"E4","GDM history -> hypertension (hardened)","L4_aggressive","Fully-Aware-CF",-0.0249,0.0074,0.0211,94,-0.0668,0.0171
+"E4","GDM history -> hypertension (hardened)","L4_aggressive","Fully-Aware-CF-wOOF",-0.0271,0.0093,0.0226,94,-0.0719,0.0177
