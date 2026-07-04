@@ -1,0 +1,36 @@
+cff-version: 1.2.0
+message: "If you use this code, please cite the main paper (the preferred citation below) — not the software entry or any Web Appendix supplement."
+title: "Cross-Fitted Survey-Weighted TMLE with Design-Based Variance for Causal Machine Learning"
+abstract: >-
+  Reference implementation and reproducible analysis code for a cross-fitted,
+  survey-weighted Targeted Maximum Likelihood Estimator (TMLE) of the population
+  average treatment effect, with a design-based (Taylor-series-linearization)
+  variance for stratified multistage survey samples.
+type: software
+authors:
+  - family-names: Karim
+    given-names: M Ehsan
+    affiliation: "University of British Columbia"
+    orcid: "https://orcid.org/0000-0002-0346-2871"
+repository-code: "https://github.com/ehsanx/Survey-TMLE-codes"
+url: "https://ehsank.com/"
+license: GPL-3.0-or-later
+keywords:
+  - targeted maximum likelihood estimation
+  - causal inference
+  - complex surveys
+  - cross-fitting
+  - design-based variance
+  - NHANES
+preferred-citation:
+  type: article
+  title: >-
+    Cross-Fitted Survey-Weighted TMLE with Design-Based Variance for Causal
+    Machine Learning
+  authors:
+    - family-names: Karim
+      given-names: M Ehsan
+  year: 2026
+  notes: "Submitted."
+  # journal: ""        # fill in on acceptance
+  # doi: ""            # fill in on acceptance

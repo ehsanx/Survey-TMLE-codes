@@ -1,0 +1,7 @@
+method,refit,nuisance_unc,se,se_ratio,ci,wall_s,core_sec_ratio
+Linearization (TSL),No,No,0.0199,1.00,"(-0.003, 0.078)",0.02,1x
+Delete-one-PSU jackknife (JKn),No,No,0.0199,1.00,"(-0.003, 0.078)",0.31,~19x
+Balanced repeated replication (BRR),No,No,0.0200,1.00,"(-0.003, 0.079)",0.02,~1x
+Fay's BRR (rho=0.3),No,No,0.0200,1.00,"(-0.003, 0.079)",0.02,~1x
+Rao-Wu bootstrap weights (R=500),No,No,0.0196,0.99,"(-0.002, 0.078)",8.6,~540x
+Cluster bootstrap (B=500),Yes,Yes,0.0193,0.97,"(-0.002, 0.071) [percentile]",8877,~1.5e7x

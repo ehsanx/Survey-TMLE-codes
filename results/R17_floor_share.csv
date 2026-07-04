@@ -1,0 +1,4 @@
+"example","label","floor","n_domain","A_prev","share_clip_w","share_clip_unw","mass05_w","expmass05_w","g_raw_min","g_raw_max","b","se","lcl","ucl"
+"E2","Food insecurity -> depression",0.05,29359,0.1975,0.3837,0.2753,0.3837,0.0406,0.0041,0.8367,0.089,0.008,0.0731,0.1048
+"E3","E-cigarette use -> hypertension",0.05,10736,0.1812,0.3511,0.4086,0.3511,0.0274,0.0017,0.9636,0.0337,0.0198,-0.0067,0.074
+"E4","GDM history -> hypertension (hardened)",0.05,10956,0.0622,0.5024,0.5181,0.5024,0.2066,0.0026,0.6196,0.0158,0.023,-0.0298,0.0614

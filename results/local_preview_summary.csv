@@ -1,0 +1,21 @@
+"example","label","method","b","se","lcl","ucl","df"
+"E1","Short sleep -> obesity","Fully-Aware",0.0353,0.0077,0.0199,0.0507,94
+"E1","Short sleep -> obesity","Partially-Aware",0.0353,0.0081,0.0193,0.0513,30982
+"E1","Short sleep -> obesity","Non-Aware",0.035,0.0057,0.0237,0.0463,30982
+"E1","Short sleep -> obesity","Fully-Aware-CV",0.035,0.0077,0.0197,0.0503,94
+"E1","Short sleep -> obesity","Fully-Aware-CF",0.0352,0.0078,0.0197,0.0507,94
+"E2","Food insecurity -> depression","Fully-Aware",0.0966,0.0117,0.0733,0.1198,94
+"E2","Food insecurity -> depression","Partially-Aware",0.0966,0.0115,0.074,0.1191,29358
+"E2","Food insecurity -> depression","Non-Aware",0.0744,0.0062,0.0623,0.0866,29358
+"E2","Food insecurity -> depression","Fully-Aware-CV",0.0886,0.0079,0.0728,0.1043,94
+"E2","Food insecurity -> depression","Fully-Aware-CF",0.0912,0.0081,0.075,0.1073,94
+"E3","E-cigarette use -> hypertension","Fully-Aware",0.0351,0.0262,-0.0183,0.0886,30
+"E3","E-cigarette use -> hypertension","Partially-Aware",0.0351,0.0304,-0.0245,0.0948,10735
+"E3","E-cigarette use -> hypertension","Non-Aware",0.073,0.0154,0.0428,0.1031,10735
+"E3","E-cigarette use -> hypertension","Fully-Aware-CV",0.0407,0.0197,4e-04,0.0809,30
+"E3","E-cigarette use -> hypertension","Fully-Aware-CF",0.0423,0.0198,0.0018,0.0827,30
+"E4","GDM history -> hypertension (hardened)","Fully-Aware",0.0283,0.025,-0.0212,0.0779,94
+"E4","GDM history -> hypertension (hardened)","Partially-Aware",0.0283,0.0243,-0.0193,0.076,10955
+"E4","GDM history -> hypertension (hardened)","Non-Aware",0.0298,0.0191,-0.0076,0.0672,10955
+"E4","GDM history -> hypertension (hardened)","Fully-Aware-CV",0.0147,0.0217,-0.0284,0.0577,94
+"E4","GDM history -> hypertension (hardened)","Fully-Aware-CF",0.0149,0.0231,-0.0311,0.0608,94

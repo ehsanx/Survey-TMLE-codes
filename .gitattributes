@@ -1,0 +1,5 @@
+# Normalize line endings: keep R/text sources as LF across platforms.
+* text=auto
+*.R text eol=lf
+*.md text eol=lf
+*.slurm text eol=lf

@@ -1,0 +1,476 @@
+"where","source","written","derived","ok"
+"manuscript.Rmd Sec5","sim_full_summary.csv: standard/L4/Fully-Aware se_ratio","0.20","0.20",TRUE
+"manuscript.Rmd Sec5","sim_full_summary.csv: R1/L4/Fully-Aware se_ratio","0.16","0.16",TRUE
+"manuscript.Rmd Sec5","sim_full_summary.csv: standard/L4/Fully-Aware-CF bias","+0.002","+0.002",TRUE
+"manuscript.Rmd Sec5","sim_full_summary.csv: R1/L4/Fully-Aware-CF bias","+0.006","+0.006",TRUE
+"manuscript.Rmd Sec5","sim_full_summary.csv: standard/L4/Fully-Aware-CF se_ratio","1.45","1.45",TRUE
+"manuscript.Rmd Sec5","sim_full_summary.csv: R1/L4/Fully-Aware-CF se_ratio","1.44","1.44",TRUE
+"manuscript.Rmd Sec5","sim_full_summary.csv: standard/L4/Fully-Aware-CF coverage","0.988","0.988",TRUE
+"manuscript.Rmd Sec5","sim_full_summary.csv: R1/L4/Fully-Aware-CF coverage","0.992","0.992",TRUE
+"manuscript.Rmd Sec5","sim_full_summary.csv: max L4 Fully-Aware-CF mcse_cov","<=0.004","0.0034",TRUE
+"appendix.Rmd WebF","nhanes_summary: E3/L1_param/Fully-Aware b","0.019","0.019",TRUE
+"appendix.Rmd WebF","nhanes_summary: E3/L2_smooth/Fully-Aware b","0.031","0.031",TRUE
+"appendix.Rmd WebF","nhanes_summary: E3/L3_adaptive/Fully-Aware b","0.090","0.090",TRUE
+"appendix.Rmd WebF","nhanes_summary: E3/L4_aggressive/Fully-Aware b","0.152","0.152",TRUE
+"appendix.Rmd WebF","nhanes_summary: E3/L1_param/Fully-Aware-CF b","0.033","0.033",TRUE
+"appendix.Rmd WebF","nhanes_summary: E3/L2_smooth/Fully-Aware-CF b","0.034","0.034",TRUE
+"appendix.Rmd WebF","nhanes_summary: E3/L3_adaptive/Fully-Aware-CF b","0.026","0.026",TRUE
+"appendix.Rmd WebF","nhanes_summary: E3/L4_aggressive/Fully-Aware-CF b","-0.005","-0.005",TRUE
+"appendix.Rmd WebF","nhanes_summary: E4/L4/Fully-Aware b (weighted single-fit)","-0.295","-0.295",TRUE
+"appendix.Rmd WebF","nhanes_summary: E4/L4/Fully-Aware lcl,ucl","[-0.310, -0.280]","[-0.310, -0.281]",TRUE
+"appendix.Rmd WebF","nhanes_summary: E4/L4/Non-Aware b (unweighted single-fit)","+0.212","+0.211",TRUE
+"appendix.Rmd WebF","nhanes_summary: E4/L3/Fully-Aware-CF b","0.008","0.008",TRUE
+"appendix.Rmd WebF","nhanes_summary: E4/L4/Fully-Aware-CF b","-0.017","-0.017",TRUE
+"appendix.Rmd WebF","nhanes_summary: E1/L1_param/Fully-Aware b","0.044","0.044",TRUE
+"appendix.Rmd WebF","nhanes_summary: E1/L2_smooth/Fully-Aware b","0.035","0.035",TRUE
+"appendix.Rmd WebF","nhanes_summary: E1/L3_adaptive/Fully-Aware b","0.036","0.036",TRUE
+"appendix.Rmd WebF","nhanes_summary: E1/L4_aggressive/Fully-Aware b","-0.042","-0.042",TRUE
+"appendix.Rmd WebF","nhanes_summary: E1/L4/Fully-Aware lcl,ucl","[-0.052, -0.031]","[-0.052, -0.031]",TRUE
+"appendix.Rmd WebF","nhanes_summary: E1/L1_param/Fully-Aware-CF b","0.045","0.045",TRUE
+"appendix.Rmd WebF","nhanes_summary: E1/L2_smooth/Fully-Aware-CF b","0.035","0.035",TRUE
+"appendix.Rmd WebF","nhanes_summary: E1/L3_adaptive/Fully-Aware-CF b","0.034","0.034",TRUE
+"appendix.Rmd WebF","nhanes_summary: E1/L4_aggressive/Fully-Aware-CF b","0.034","0.034",TRUE
+"appendix.Rmd WebF","nhanes_summary: E2/L1_param/Fully-Aware b","0.102","0.102",TRUE
+"appendix.Rmd WebF","nhanes_summary: E2/L2_smooth/Fully-Aware b","0.095","0.095",TRUE
+"appendix.Rmd WebF","nhanes_summary: E2/L3_adaptive/Fully-Aware b","0.110","0.110",TRUE
+"appendix.Rmd WebF","nhanes_summary: E2/L4_aggressive/Fully-Aware b","-0.003","-0.003",TRUE
+"appendix.Rmd WebF","nhanes_summary: E2/L1_param/Fully-Aware-CF b","0.092","0.092",TRUE
+"appendix.Rmd WebF","nhanes_summary: E2/L2_smooth/Fully-Aware-CF b","0.088","0.088",TRUE
+"appendix.Rmd WebF","nhanes_summary: E2/L3_adaptive/Fully-Aware-CF b","0.084","0.084",TRUE
+"appendix.Rmd WebF","nhanes_summary: E2/L4_aggressive/Fully-Aware-CF b","0.085","0.085",TRUE
+"appendix.Rmd WebF","nhanes_summary: E1/L2/Fully-Aware-CF b","0.035","0.035",TRUE
+"appendix.Rmd WebF","nhanes_summary: E2/L2/Fully-Aware-CF b","0.088","0.088",TRUE
+"appendix.Rmd WebF","nhanes_summary: E3/L2/Fully-Aware-CF b","0.034","0.034",TRUE
+"appendix.Rmd WebF","nhanes_summary: E4/L2/Fully-Aware-CF b","0.010","0.009",TRUE
+"appendix.Rmd WebF","local_preview_summary: E1/Fully-Aware-CF b","0.035","0.035",TRUE
+"appendix.Rmd WebF","local_preview_summary: E2/Fully-Aware-CF b","0.091","0.091",TRUE
+"appendix.Rmd WebF","local_preview_summary: E3/Fully-Aware-CF b","0.042","0.042",TRUE
+"appendix.Rmd WebF","local_preview_summary: E4/Fully-Aware-CF b","0.015","0.015",TRUE
+"manuscript.Rmd Sec6","nhanes_summary: E3/L4/Fully-Aware b -> 0.15","0.15","0.15",TRUE
+"manuscript.Rmd Sec6","nhanes_summary: E4/L4/Fully-Aware b -> -0.30","-0.30","-0.30",TRUE
+"appendix.Rmd WebF","diagnostics: E3 A_prev -> 18%","18%","18%",TRUE
+"appendix.Rmd WebF","diagnostics: E4 A_prev -> 6%","6%","6%",TRUE
+"appendix.Rmd WebF","diagnostics: E1 L4 g_fa_near_bound -> 16%","16%","16%",TRUE
+"appendix.Rmd WebF","diagnostics: E2 L4 g_fa_near_bound -> 42%","42%","42%",TRUE
+"appendix.Rmd WebF","diagnostics: E3 L4 g_fa_near_bound -> 58%","58%","58%",TRUE
+"appendix.Rmd WebF","diagnostics: E4 L4 g_fa_near_bound -> 68%","68%","68%",TRUE
+"appendix.Rmd WebF","diagnostics: E4 L4 g_cf range -> [0.05, 0.63]","[0.05, 0.63]","[0.05, 0.63]",TRUE
+"appendix.Rmd WebF","diagnostics: E3 L4 g_cf range -> [0.05, 0.95]","[0.05, 0.95]","[0.05, 0.95]",TRUE
+"appendix.Rmd WebD-iso","R03 csv: L4_aggressive/SF-W coverage","0.398","0.398",TRUE
+"appendix.Rmd WebD-iso","R03 csv: L4_aggressive/SF-U coverage","0.394","0.394",TRUE
+"appendix.Rmd WebD-iso","R03 csv: L4_aggressive/CF-W coverage","0.985","0.985",TRUE
+"appendix.Rmd WebD-iso","R03 csv: L4_aggressive/CF-U coverage","0.987","0.987",TRUE
+"appendix.Rmd WebD-iso","R03 csv: L4_aggressive/SF-W bias","+0.050","+0.050",TRUE
+"appendix.Rmd WebD-iso","R03 csv: L4_aggressive/SF-U bias","+0.025","+0.025",TRUE
+"appendix.Rmd WebD-iso","R03 csv: L4_aggressive/CF-W bias","+0.003","+0.003",TRUE
+"appendix.Rmd WebD-iso","R03 csv: L4_aggressive/CF-U bias","+0.001","+0.001",TRUE
+"appendix.Rmd WebD-iso","R03 csv: L4_aggressive/CF-W se_ratio","1.55","1.55",TRUE
+"appendix.Rmd WebD-iso","R03 csv: L4_aggressive/CF-U se_ratio","1.44","1.44",TRUE
+"appendix.Rmd WebD-iso","R03 csv: L1_param/SF-W coverage","0.954","0.954",TRUE
+"appendix.Rmd WebD-iso","R03 csv: L1_param/SF-U coverage","0.938","0.938",TRUE
+"appendix.Rmd WebD-iso","R03 csv: L1_param/CF-W coverage","0.974","0.974",TRUE
+"appendix.Rmd WebD-iso","R03 csv: L1_param/CF-U coverage","0.944","0.944",TRUE
+"appendix.Rmd WebD-iso","R03 csv: L1_param/SF-W n_reps","828","828",TRUE
+"appendix.Rmd WebD-iso","R03 csv: L1_param/SF-W n_diverged","172","172",TRUE
+"appendix.Rmd WebD-iso","R03 csv: L1_param/CF-W n_reps","834","834",TRUE
+"appendix.Rmd WebD-iso","R03 csv: L1_param/CF-W n_diverged","166","166",TRUE
+"appendix.Rmd WebD-control","R01 csv: complex/standard(A)/L1/Fully-Aware-CF bias","+0.020","+0.019",TRUE
+"appendix.Rmd WebD-control","R01 csv: complex/R1(B)/L1/Fully-Aware-CF bias","+0.021","+0.021",TRUE
+"appendix.Rmd WebD-control","R01 csv: complex/standard(A)/L1/Fully-Aware-CF coverage","0.943","0.943",TRUE
+"appendix.Rmd WebD-control","R01 csv: complex/R1(B)/L1/Fully-Aware-CF coverage","0.912","0.912",TRUE
+"appendix.Rmd WebD-control","R01 csv: simple/standard(A)/L1/Fully-Aware-CF bias","-0.004","-0.004",TRUE
+"appendix.Rmd WebD-control","R01 csv: simple/R1(B)/L1/Fully-Aware-CF bias","-0.002","-0.002",TRUE
+"appendix.Rmd WebD-control","R01 csv: simple/standard(A)/L1/Fully-Aware-CF coverage","0.958","0.958",TRUE
+"appendix.Rmd WebD-control","R01 csv: simple/R1(B)/L1/Fully-Aware-CF coverage","0.954","0.954",TRUE
+"appendix.Rmd WebD-control","R01 csv: simple/standard(A)/L1/Fully-Aware bias","-0.003","-0.003",TRUE
+"appendix.Rmd WebD-control","R01 csv: simple/R1(B)/L1/Fully-Aware bias","-0.003","-0.003",TRUE
+"appendix.Rmd WebD-control","R01 csv: simple/standard(A)/L1/Fully-Aware coverage","0.952","0.952",TRUE
+"appendix.Rmd WebD-control","R01 csv: simple/R1(B)/L1/Fully-Aware coverage","0.954","0.954",TRUE
+"appendix.Rmd WebD-control","R01 csv: simple/A/L1/Fully-Aware |bias|/MCSE-of-mean ~ 2 (>=1.9,<=2.6)","about twice MCSE","2.01",TRUE
+"appendix.Rmd WebD-control","R01 csv: complex/standard(A)/L1/Non-Aware bias","+0.031","+0.031",TRUE
+"appendix.Rmd WebD-control","R01 csv: complex/R1(B)/L1/Non-Aware bias","+0.044","+0.044",TRUE
+"appendix.Rmd WebD-control","R01 csv: complex/standard(A)/L1/Non-Aware coverage","0.638","0.638",TRUE
+"appendix.Rmd WebD-control","R01 csv: complex/R1(B)/L1/Non-Aware coverage","0.459","0.459",TRUE
+"manuscript.Rmd Sec5","R01 csv: complex/standard(A)/L1/Fully-Aware-CF bias -> +0.02","+0.02","+0.02",TRUE
+"appendix.Rmd WebD","R04 csv: R1/L2_smooth/prod_sqrtm_vs_L1","0.92","0.92",TRUE
+"appendix.Rmd WebD","R04 csv: R1/L3_adaptive/prod_sqrtm_vs_L1","0.94","0.94",TRUE
+"appendix.Rmd WebD","R04 csv: R1/L4_aggressive/prod_sqrtm_vs_L1","3.46","3.46",TRUE
+"appendix.Rmd WebD","R04 csv: standard/L2_smooth/prod_sqrtm_vs_L1","0.88","0.88",TRUE
+"appendix.Rmd WebD","R04 csv: standard/L3_adaptive/prod_sqrtm_vs_L1","0.90","0.90",TRUE
+"appendix.Rmd WebD","R04 csv: standard/L4_aggressive/prod_sqrtm_vs_L1","3.18","3.18",TRUE
+"appendix.Rmd WebD","R04 csv: R1/L1/prod_sqrtm_vs_L1 (baseline)","1.00","1.00",TRUE
+"appendix.Rmd WebD","R04 csv: standard/L1/prod_sqrtm_vs_L1 (baseline)","1.00","1.00",TRUE
+"appendix.Rmd WebD","R04 csv: R1/L1_param/truth_join","OK","OK",TRUE
+"appendix.Rmd WebD","R04 csv: R1/L2_smooth/truth_join","OK","OK",TRUE
+"appendix.Rmd WebD","R04 csv: R1/L3_adaptive/truth_join","OK","OK",TRUE
+"appendix.Rmd WebD","R04 csv: R1/L4_aggressive/truth_join","OK","OK",TRUE
+"appendix.Rmd WebD","R04 csv: standard/L1_param/truth_join","OK","OK",TRUE
+"appendix.Rmd WebD","R04 csv: standard/L2_smooth/truth_join","OK","OK",TRUE
+"appendix.Rmd WebD","R04 csv: standard/L3_adaptive/truth_join","OK","OK",TRUE
+"appendix.Rmd WebD","R04 csv: standard/L4_aggressive/truth_join","OK","OK",TRUE
+"appendix.Rmd WebF-R07","R07 csv: 0/L3_adaptive/CF-unwt w_cv","0.32","0.32",TRUE
+"appendix.Rmd WebF-R07","R07 csv: 0.3/L3_adaptive/CF-unwt w_cv","0.38","0.38",TRUE
+"appendix.Rmd WebF-R07","R07 csv: 0.6/L3_adaptive/CF-unwt w_cv","0.55","0.55",TRUE
+"appendix.Rmd WebF-R07","R07 csv: 0.9/L3_adaptive/CF-unwt w_cv","0.81","0.81",TRUE
+"appendix.Rmd WebF-R07","R07 csv: 0/L3_adaptive/CF-unwt coverage","0.941","0.941",TRUE
+"appendix.Rmd WebF-R07","R07 csv: 0.3/L3_adaptive/CF-unwt coverage","0.938","0.938",TRUE
+"appendix.Rmd WebF-R07","R07 csv: 0.6/L3_adaptive/CF-unwt coverage","0.929","0.929",TRUE
+"appendix.Rmd WebF-R07","R07 csv: 0.9/L3_adaptive/CF-unwt coverage","0.929","0.929",TRUE
+"appendix.Rmd WebF-R07","R07 csv: 0/L3_adaptive/CF-unwt se_ratio","1.01","1.01",TRUE
+"appendix.Rmd WebF-R07","R07 csv: 0.3/L3_adaptive/CF-unwt se_ratio","1.00","1.00",TRUE
+"appendix.Rmd WebF-R07","R07 csv: 0/L3_adaptive/CF-unwt |bias|","0.012","0.012",TRUE
+"appendix.Rmd WebF-R07","R07 csv: 0.9/L3_adaptive/CF-unwt |bias|","0.006","0.006",TRUE
+"appendix.Rmd WebF-R07","R07 csv: 0/L3_adaptive/CF-wt coverage","0.944","0.944",TRUE
+"appendix.Rmd WebF-R07","R07 csv: 0.9/L3_adaptive/CF-wt coverage","0.928","0.928",TRUE
+"appendix.Rmd WebF-R07","R07 csv: 0/L3_adaptive/CF-wt |bias|","0.010","0.010",TRUE
+"appendix.Rmd WebF-R07","R07 csv: 0.9/L3_adaptive/CF-wt |bias|","0.008","0.008",TRUE
+"appendix.Rmd WebF-R07","R07 csv: 0/L2_smooth/CF-unwt coverage","0.945","0.945",TRUE
+"appendix.Rmd WebF-R07","R07 csv: 0.3/L2_smooth/CF-unwt coverage","0.943","0.943",TRUE
+"appendix.Rmd WebF-R07","R07 csv: 0.6/L2_smooth/CF-unwt coverage","0.919","0.919",TRUE
+"appendix.Rmd WebF-R07","R07 csv: 0.9/L2_smooth/CF-unwt coverage","0.928","0.928",TRUE
+"appendix.Rmd WebF-R07","R07 csv: 0/L2_smooth/CF-unwt |bias|","0.014","0.014",TRUE
+"appendix.Rmd WebF-R07","R07 csv: 0.9/L2_smooth/CF-unwt |bias|","0.007","0.007",TRUE
+"appendix.Rmd WebF-R07","R07 csv: max mcse_cov over L2/L3, both CF arms, all rho","<=0.009","0.0086",TRUE
+"appendix.Rmd WebF jack","R11 csv jack: all 8 jk_lin_ratio round to 1.00","1.00","1.00",TRUE
+"appendix.Rmd WebF jack","R11 csv jack: max jk_lin_ratio (R1/L3/Fully-Aware-CF)","1.004","1.004",TRUE
+"appendix.Rmd WebF jack","R11 csv jack: standard/L1/Fully-Aware jk_lin_ratio","1.000","1.000",TRUE
+"appendix.Rmd WebF jack","R11 csv jack: R1/L3/Fully-Aware jk_lin_ratio","1.000","1.000",TRUE
+"appendix.Rmd WebF jack","R11 csv jack: standard/L1/Fully-Aware coverage_taylor","0.934","0.934",TRUE
+"appendix.Rmd WebF jack","R11 csv jack: standard/L1/Fully-Aware coverage_jack","0.934","0.934",TRUE
+"appendix.Rmd WebF jack","R11 csv jack: R1/L1/Fully-Aware coverage_taylor","0.930","0.930",TRUE
+"appendix.Rmd WebF jack","R11 csv jack: R1/L1/Fully-Aware coverage_jack","0.930","0.930",TRUE
+"appendix.Rmd WebF jack","R11 csv jack: standard/L3/Fully-Aware-CF coverage_taylor","0.942","0.942",TRUE
+"appendix.Rmd WebF jack","R11 csv jack: standard/L3/Fully-Aware-CF coverage_jack","0.940","0.940",TRUE
+"appendix.Rmd WebF jack","R11 csv jack: R1/L3/Fully-Aware-CF coverage_taylor","0.930","0.930",TRUE
+"appendix.Rmd WebF jack","R11 csv jack: R1/L3/Fully-Aware-CF coverage_jack","0.940","0.940",TRUE
+"appendix.Rmd WebF jack","R11 csv jack: standard/L3/Fully-Aware coverage_taylor","0.896","0.896",TRUE
+"appendix.Rmd WebF jack","R11 csv jack: R1/L3/Fully-Aware coverage_taylor","0.898","0.898",TRUE
+"appendix.Rmd WebF jack","R11 csv taylor: standard/L3/IPW-svyglm coverage","0.934","0.934",TRUE
+"appendix.Rmd WebF jack","R11 csv taylor: R1/L3/IPW-svyglm coverage","0.928","0.928",TRUE
+"appendix.Rmd WebF-R05","R05 csv: E3/L1_param d_FA_FAh05 (floor-vs-default gap)","0.000","0.000",TRUE
+"appendix.Rmd WebF-R05","R05 csv: E3/L2_smooth d_FA_FAh05 (floor-vs-default gap)","0.000","0.000",TRUE
+"appendix.Rmd WebF-R05","R05 csv: E3/L3_adaptive d_FA_FAh05 (floor-vs-default gap)","0.000","0.000",TRUE
+"appendix.Rmd WebF-R05","R05 csv: E3/L4_aggressive d_FA_FAh05 (floor-vs-default gap)","0.000","0.000",TRUE
+"appendix.Rmd WebF-R05","R05 csv: E4/L1_param d_FA_FAh05 (floor-vs-default gap)","0.000","0.000",TRUE
+"appendix.Rmd WebF-R05","R05 csv: E4/L2_smooth d_FA_FAh05 (floor-vs-default gap)","0.000","0.000",TRUE
+"appendix.Rmd WebF-R05","R05 csv: E4/L3_adaptive d_FA_FAh05 (floor-vs-default gap)","0.000","0.000",TRUE
+"appendix.Rmd WebF-R05","R05 csv: E4/L4_aggressive d_FA_FAh05 (floor-vs-default gap)","0.000","0.000",TRUE
+"appendix.Rmd WebF-R05","R05 csv: E3/L1_param d_FA_CF","0.013","0.013",TRUE
+"appendix.Rmd WebF-R05","R05 csv: E3/L2_smooth d_FA_CF","0.003","0.003",TRUE
+"appendix.Rmd WebF-R05","R05 csv: E3/L3_adaptive d_FA_CF","0.064","0.064",TRUE
+"appendix.Rmd WebF-R05","R05 csv: E3/L4_aggressive d_FA_CF","0.157","0.157",TRUE
+"appendix.Rmd WebF-R05","R05 csv: E4/L1_param d_FA_CF","0.020","0.020",TRUE
+"appendix.Rmd WebF-R05","R05 csv: E4/L2_smooth d_FA_CF","0.018","0.018",TRUE
+"appendix.Rmd WebF-R05","R05 csv: E4/L3_adaptive d_FA_CF","0.041","0.041",TRUE
+"appendix.Rmd WebF-R05","R05 csv: E4/L4_aggressive d_FA_CF","0.278","0.279",TRUE
+"appendix.Rmd WebF-R05","R05 csv: E3/L3 b_FA","0.090","0.090",TRUE
+"appendix.Rmd WebF-R05","R05 csv: E3/L3 b_CF","0.026","0.026",TRUE
+"appendix.Rmd WebF-R05","R05 csv: E3/L3 b_CF_wOOF","0.025","0.025",TRUE
+"appendix.Rmd WebF-R05","R05 csv: E4/L3 b_FA","0.051","0.051",TRUE
+"appendix.Rmd WebF-R05","R05 csv: E4/L3 b_CF","0.010","0.010",TRUE
+"appendix.Rmd WebF-R05","R05 csv: E4/L3 b_CF_wOOF","0.008","0.008",TRUE
+"appendix.Rmd WebF-R05","R05 csv: E3/L3 d_CFwOOF_CF (wOOF-to-CF gap)","0.001","0.001",TRUE
+"appendix.Rmd WebF-R05","R05 csv: E3/L3 d_CFwOOF_FA (wOOF-to-single-fit gap)","0.065","0.065",TRUE
+"appendix.Rmd WebF-R05","R05 csv: E4/L3 d_CFwOOF_CF (wOOF-to-CF gap)","0.002","0.002",TRUE
+"appendix.Rmd WebF-R05","R05 csv: cfwoof_closer_to == CF in all 6 converged cells","CF (all)","CF x6",TRUE
+"appendix.Rmd WebF-R05","R05 csv: E3/L1 b_CF_wOOF is NA (non-convergence)","--- (NA)",NA,TRUE
+"appendix.Rmd WebF-R05","R05 csv: E4/L1 b_CF_wOOF is NA (non-convergence)","--- (NA)",NA,TRUE
+"appendix.Rmd WebF-R05","R05 summary: E3/L3 Fully-Aware-CF-wOOF b_split_sd","0.0066","0.0066",TRUE
+"appendix.Rmd WebF-R05","R05 summary: E3/L3 Fully-Aware-CF b_split_sd","0.0052","0.0052",TRUE
+"appendix.Rmd WebF-R05","R05 summary: E4/L3 Fully-Aware-CF-wOOF b_split_sd","0.0092","0.0092",TRUE
+"appendix.Rmd WebF-R05","R05 summary: E4/L3 Fully-Aware-CF b_split_sd","0.0050","0.0050",TRUE
+"appendix.Rmd WebF-R05","R05 summary: wOOF b_split_sd > CF in 5/6 cells (exception E4/L4_aggressive)","5; E4/L4_aggressive","5; E4/L4_aggressive",TRUE
+"appendix.Rmd WebF-R05","R05 diagnostics: harmonized floor fa_gbound == 0.05 (all cells)","0.05","0.05",TRUE
+"appendix.Rmd WebF-R05","R05 diagnostics: OOF floor g_oof_bound == 0.05 (all cells)","0.05","0.05",TRUE
+"Table2/WebF-mi/Sec6","R06 MI: E1/Fully-Aware-CF b","0.036","0.036",TRUE
+"Table2/WebF-mi","R06 MI: E1/Fully-Aware-CF lcl","0.020","0.020",TRUE
+"Table2/WebF-mi","R06 MI: E1/Fully-Aware-CF ucl","0.051","0.051",TRUE
+"Table2/WebF-mi/Sec6","R06 MI: E2/Fully-Aware-CF b","0.087","0.087",TRUE
+"Table2/WebF-mi","R06 MI: E2/Fully-Aware-CF lcl","0.070","0.070",TRUE
+"Table2/WebF-mi","R06 MI: E2/Fully-Aware-CF ucl","0.103","0.103",TRUE
+"Table2/WebF-mi/Sec6","R06 MI: E3/Fully-Aware-CF b","0.032","0.032",TRUE
+"Table2/WebF-mi","R06 MI: E3/Fully-Aware-CF lcl","-0.010","-0.010",TRUE
+"Table2/WebF-mi","R06 MI: E3/Fully-Aware-CF ucl","0.074","0.074",TRUE
+"Table2/WebF-mi/Sec6","R06 MI: E4/Fully-Aware-CF b","0.014","0.014",TRUE
+"Table2/WebF-mi","R06 MI: E4/Fully-Aware-CF lcl","-0.033","-0.033",TRUE
+"Table2/WebF-mi","R06 MI: E4/Fully-Aware-CF ucl","0.061","0.061",TRUE
+"Table2/Sec6","R06 MI: E1/Non-Aware b","0.035","0.035",TRUE
+"Table2","R06 MI: E1/Non-Aware lcl","0.024","0.024",TRUE
+"Table2","R06 MI: E1/Non-Aware ucl","0.047","0.047",TRUE
+"Table2/Sec6","R06 MI: E2/Non-Aware b","0.071","0.071",TRUE
+"Table2","R06 MI: E2/Non-Aware lcl","0.059","0.059",TRUE
+"Table2","R06 MI: E2/Non-Aware ucl","0.083","0.083",TRUE
+"Table2/Sec6","R06 MI: E3/Non-Aware b","0.072","0.072",TRUE
+"Table2","R06 MI: E3/Non-Aware lcl","0.043","0.042",TRUE
+"Table2","R06 MI: E3/Non-Aware ucl","0.103","0.103",TRUE
+"Table2/Sec6","R06 MI: E4/Non-Aware b","0.030","0.030",TRUE
+"Table2","R06 MI: E4/Non-Aware lcl","-0.008","-0.008",TRUE
+"Table2","R06 MI: E4/Non-Aware ucl","0.068","0.068",TRUE
+"Table2-5arm","R06 MI: E1/Partially-Aware b","0.035","0.035",TRUE
+"Table2-5arm","R06 MI: E1/Partially-Aware lcl","0.020","0.019",TRUE
+"Table2-5arm","R06 MI: E1/Partially-Aware ucl","0.051","0.051",TRUE
+"Table2-5arm","R06 MI: E2/Partially-Aware b","0.093","0.093",TRUE
+"Table2-5arm","R06 MI: E2/Partially-Aware lcl","0.070","0.070",TRUE
+"Table2-5arm","R06 MI: E2/Partially-Aware ucl","0.116","0.116",TRUE
+"Table2-5arm","R06 MI: E3/Partially-Aware b","0.035","0.035",TRUE
+"Table2-5arm","R06 MI: E3/Partially-Aware lcl","-0.021","-0.021",TRUE
+"Table2-5arm","R06 MI: E3/Partially-Aware ucl","0.091","0.091",TRUE
+"Table2-5arm","R06 MI: E4/Partially-Aware b","0.028","0.028",TRUE
+"Table2-5arm","R06 MI: E4/Partially-Aware lcl","-0.022","-0.022",TRUE
+"Table2-5arm","R06 MI: E4/Partially-Aware ucl","0.077","0.077",TRUE
+"Table2-5arm","R06 MI: E1/Fully-Aware b","0.035","0.035",TRUE
+"Table2-5arm","R06 MI: E1/Fully-Aware lcl","0.020","0.020",TRUE
+"Table2-5arm","R06 MI: E1/Fully-Aware ucl","0.051","0.051",TRUE
+"Table2-5arm","R06 MI: E2/Fully-Aware b","0.093","0.093",TRUE
+"Table2-5arm","R06 MI: E2/Fully-Aware lcl","0.068","0.068",TRUE
+"Table2-5arm","R06 MI: E2/Fully-Aware ucl","0.117","0.117",TRUE
+"Table2-5arm","R06 MI: E3/Fully-Aware b","0.035","0.035",TRUE
+"Table2-5arm","R06 MI: E3/Fully-Aware lcl","-0.017","-0.017",TRUE
+"Table2-5arm","R06 MI: E3/Fully-Aware ucl","0.086","0.086",TRUE
+"Table2-5arm","R06 MI: E4/Fully-Aware b","0.028","0.028",TRUE
+"Table2-5arm","R06 MI: E4/Fully-Aware lcl","-0.023","-0.023",TRUE
+"Table2-5arm","R06 MI: E4/Fully-Aware ucl","0.078","0.077",TRUE
+"Table2-5arm","R06 MI: E1/Fully-Aware-CV b","0.035","0.035",TRUE
+"Table2-5arm","R06 MI: E1/Fully-Aware-CV lcl","0.020","0.020",TRUE
+"Table2-5arm","R06 MI: E1/Fully-Aware-CV ucl","0.051","0.051",TRUE
+"Table2-5arm","R06 MI: E2/Fully-Aware-CV b","0.086","0.086",TRUE
+"Table2-5arm","R06 MI: E2/Fully-Aware-CV lcl","0.070","0.070",TRUE
+"Table2-5arm","R06 MI: E2/Fully-Aware-CV ucl","0.102","0.102",TRUE
+"Table2-5arm","R06 MI: E3/Fully-Aware-CV b","0.040","0.040",TRUE
+"Table2-5arm","R06 MI: E3/Fully-Aware-CV lcl","-0.001","-0.001",TRUE
+"Table2-5arm","R06 MI: E3/Fully-Aware-CV ucl","0.081","0.081",TRUE
+"Table2-5arm","R06 MI: E4/Fully-Aware-CV b","0.015","0.015",TRUE
+"Table2-5arm","R06 MI: E4/Fully-Aware-CV lcl","-0.028","-0.028",TRUE
+"Table2-5arm","R06 MI: E4/Fully-Aware-CV ucl","0.059","0.059",TRUE
+"appendix.Rmd WebF-mi","R06 MI: E1/Fully-Aware-CF fmi","0.034","0.034",TRUE
+"appendix.Rmd WebF-mi","R06 MI: E2/Fully-Aware-CF fmi","0.089","0.089",TRUE
+"appendix.Rmd WebF-mi","R06 MI: E3/Fully-Aware-CF fmi","0.104","0.104",TRUE
+"appendix.Rmd WebF-mi","R06 MI: E4/Fully-Aware-CF fmi","0.054","0.054",TRUE
+"appendix.Rmd WebF-mi","R06 MI: max Fully-Aware-CF FMI <= 0.11","<= 0.11","0.104",TRUE
+"appendix.Rmd WebF-mi","R06 MI: |MI - single-imp| CF b <= 0.005 in 3 of 4; E3 = 0.010","<=0.005 (x3); E3 0.010","0.0104",TRUE
+"appendix.Rmd WebF-mi","local_preview: E1/Fully-Aware-CF b (single imp)","0.035","0.035",TRUE
+"appendix.Rmd WebF-mi","local_preview: E1/Fully-Aware-CF lcl (single imp)","0.020","0.020",TRUE
+"appendix.Rmd WebF-mi","local_preview: E1/Fully-Aware-CF ucl (single imp)","0.051","0.051",TRUE
+"appendix.Rmd WebF-mi","local_preview: E2/Fully-Aware-CF b (single imp)","0.091","0.091",TRUE
+"appendix.Rmd WebF-mi","local_preview: E2/Fully-Aware-CF lcl (single imp)","0.075","0.075",TRUE
+"appendix.Rmd WebF-mi","local_preview: E2/Fully-Aware-CF ucl (single imp)","0.107","0.107",TRUE
+"appendix.Rmd WebF-mi","local_preview: E3/Fully-Aware-CF b (single imp)","0.042","0.042",TRUE
+"appendix.Rmd WebF-mi","local_preview: E3/Fully-Aware-CF lcl (single imp)","0.002","0.002",TRUE
+"appendix.Rmd WebF-mi","local_preview: E3/Fully-Aware-CF ucl (single imp)","0.083","0.083",TRUE
+"appendix.Rmd WebF-mi","local_preview: E4/Fully-Aware-CF b (single imp)","0.015","0.015",TRUE
+"appendix.Rmd WebF-mi","local_preview: E4/Fully-Aware-CF lcl (single imp)","-0.031","-0.031",TRUE
+"appendix.Rmd WebF-mi","local_preview: E4/Fully-Aware-CF ucl (single imp)","0.061","0.061",TRUE
+"manuscript.Rmd Sec6","local_preview: E2/Non-Aware b (single imp)","0.074","0.074",TRUE
+"manuscript.Rmd Sec6","SI vs MI: interval-excludes-zero verdict identical (all arms/examples bar documented E3/Fully-Aware-CV boundary)","no flips","no flips",TRUE
+"appendix.Rmd WebF-arms","local_preview: E3/Fully-Aware-CV lcl just above zero (single imp)","0 < lcl < 0.001","0.0004",TRUE
+"appendix.Rmd WebF-arms","local_preview: E3/Fully-Aware-CV df","30","30",TRUE
+"appendix.Rmd WebF-mi","R06 MI: E1/Fully-Aware-CF pooled df","90.8","90.8",TRUE
+"appendix.Rmd WebF-mi","R06 MI: E2/Fully-Aware-CF pooled df","85.0","85.0",TRUE
+"appendix.Rmd WebF-mi","R06 MI: E3/Fully-Aware-CF pooled df","27.0","27.0",TRUE
+"appendix.Rmd WebF-mi","R06 MI: E4/Fully-Aware-CF pooled df","88.9","88.9",TRUE
+"appendix.Rmd WebF-sens","R09: E1_noPHQ/CF b_main","0.036","0.036",TRUE
+"appendix.Rmd WebF-sens","R09: E1_noPHQ/CF b_sens","0.040","0.040",TRUE
+"appendix.Rmd WebF-sens","R09: E2_noBMI/CF b_main","0.089","0.089",TRUE
+"appendix.Rmd WebF-sens","R09: E2_noBMI/CF b_sens","0.095","0.095",TRUE
+"appendix.Rmd WebF-sens","R09: E4_noBMI/CF b_main","0.014","0.014",TRUE
+"appendix.Rmd WebF-sens","R09: E4_noBMI/CF b_sens","0.044","0.044",TRUE
+"appendix.Rmd WebF-sens","R09: E3_noDIAB/CF b_main","0.038","0.038",TRUE
+"appendix.Rmd WebF-sens","R09: E3_noDIAB/CF b_sens","0.030","0.030",TRUE
+"appendix.Rmd WebF-sens","R09: E3_noBMI/CF b_main","0.038","0.038",TRUE
+"appendix.Rmd WebF-sens","R09: E3_noBMI/CF b_sens","0.042","0.042",TRUE
+"appendix.Rmd WebF-sens","R09: E3_noBOTH/CF b_main","0.038","0.038",TRUE
+"appendix.Rmd WebF-sens","R09: E3_noBOTH/CF b_sens","0.046","0.045",TRUE
+"appendix.Rmd WebF-sens","R09: CF flips only in the documented E3 drop-BMI cells","E3_noBMI,E3_noBOTH","E3_noBMI,E3_noBOTH",TRUE
+"appendix.Rmd WebF-sens","R09: design check all overlap_clean","TRUE","TRUE",TRUE
+"appendix.Rmd WebF-sens","R09: max cycles spanned = 1","1","1",TRUE
+"appendix.Rmd WebF-R10","R10A: L1/Fully-Aware/no se_ratio","1.008","1.008",TRUE
+"appendix.Rmd WebF-R10","R10A: L1/Fully-Aware/yes se_ratio","0.873","0.873",TRUE
+"appendix.Rmd WebF-R10","R10A: L1/Fully-Aware-CF/no se_ratio","0.983","0.983",TRUE
+"appendix.Rmd WebF-R10","R10A: L1/Fully-Aware-CF/yes se_ratio","0.851","0.851",TRUE
+"appendix.Rmd WebF-R10","R10A: L2/Fully-Aware/no se_ratio","0.987","0.987",TRUE
+"appendix.Rmd WebF-R10","R10A: L2/Fully-Aware/yes se_ratio","0.855","0.855",TRUE
+"appendix.Rmd WebF-R10","R10A: L2/Fully-Aware-CF/no se_ratio","1.002","1.002",TRUE
+"appendix.Rmd WebF-R10","R10A: L2/Fully-Aware-CF/yes se_ratio","0.867","0.867",TRUE
+"appendix.Rmd WebF-R10","R10A: L2/Fully-Aware/no coverage","0.939","0.939",TRUE
+"appendix.Rmd WebF-R10","R10A: L2/Fully-Aware-CF/no coverage","0.936","0.936",TRUE
+"appendix.Rmd WebF-R10","R10A: L2/Fully-Aware/yes coverage","0.898","0.898",TRUE
+"appendix.Rmd WebF-R10","R10A: L2/Fully-Aware-CF/yes coverage","0.879","0.879",TRUE
+"appendix.Rmd WebF-R10","R10A: L1/Fully-Aware/no coverage (WebD misspec, not variance)","0.932","0.932",TRUE
+"appendix.Rmd WebF-R10","R10A: L1/Fully-Aware-CF/no coverage (WebD misspec, not variance)","0.917","0.917",TRUE
+"appendix.Rmd WebF-R10","R10B: J=64 se_ratio","0.964","0.9635",TRUE
+"appendix.Rmd WebF-R10","R10B: J=32 se_ratio","0.975","0.9752",TRUE
+"appendix.Rmd WebF-R10","R10B: J=16 se_ratio","0.997","0.9967",TRUE
+"appendix.Rmd WebF-R10","R10B: J=8 se_ratio","0.993","0.9927",TRUE
+"appendix.Rmd WebF-R10","R10B: J=64 frac (0.031, prose endpoint)","0.031","0.0312",TRUE
+"appendix.Rmd WebF-R10","R10B: J=8 frac (0.250, prose endpoint)","0.250","0.2500",TRUE
+"appendix.Rmd WebF-R10","R10B: J=64 coverage (0.899, band low)","0.899","0.899",TRUE
+"appendix.Rmd WebF-R10","R10B: J=16 coverage (0.946, band high)","0.946","0.946",TRUE
+"appendix.Rmd WebF-R02","R02: L4/m=6/Fully-Aware coverage","0.200","0.200",TRUE
+"appendix.Rmd WebF-R02","R02: L4/m=12/Fully-Aware coverage","0.169","0.169",TRUE
+"appendix.Rmd WebF-R02","R02: L4/m=20/Fully-Aware coverage","0.127","0.127",TRUE
+"appendix.Rmd WebF-R02","R02: L4/m=30/Fully-Aware coverage","0.120","0.120",TRUE
+"appendix.Rmd WebF-R02","R02: L4/m=6/Fully-Aware se_ratio","0.17","0.17",TRUE
+"appendix.Rmd WebF-R02","R02: L4/m=12/Fully-Aware se_ratio","0.12","0.12",TRUE
+"appendix.Rmd WebF-R02","R02: L4/m=20/Fully-Aware se_ratio","0.11","0.11",TRUE
+"appendix.Rmd WebF-R02","R02: L4/m=30/Fully-Aware se_ratio","0.09","0.09",TRUE
+"appendix.Rmd WebF-R02","R02: L4/m=6/Fully-Aware bias","+0.115","+0.115",TRUE
+"appendix.Rmd WebF-R02","R02: L4/m=12/Fully-Aware bias","+0.069","+0.069",TRUE
+"appendix.Rmd WebF-R02","R02: L4/m=20/Fully-Aware bias","+0.047","+0.047",TRUE
+"appendix.Rmd WebF-R02","R02: L4/m=30/Fully-Aware bias","+0.035","+0.035",TRUE
+"appendix.Rmd WebF-R02","R02: RF_shallow/m=6/Fully-Aware coverage","0.082","0.082",TRUE
+"appendix.Rmd WebF-R02","R02: RF_shallow/m=12/Fully-Aware coverage","0.095","0.095",TRUE
+"appendix.Rmd WebF-R02","R02: RF_shallow/m=20/Fully-Aware coverage","0.073","0.073",TRUE
+"appendix.Rmd WebF-R02","R02: RF_shallow/m=30/Fully-Aware coverage","0.071","0.071",TRUE
+"appendix.Rmd WebF-R02","R02: RF_shallow/m=6/Fully-Aware se_ratio","0.20","0.20",TRUE
+"appendix.Rmd WebF-R02","R02: RF_shallow/m=12/Fully-Aware se_ratio","0.16","0.16",TRUE
+"appendix.Rmd WebF-R02","R02: RF_shallow/m=20/Fully-Aware se_ratio","0.13","0.13",TRUE
+"appendix.Rmd WebF-R02","R02: RF_shallow/m=30/Fully-Aware se_ratio","0.11","0.11",TRUE
+"appendix.Rmd WebF-R02","R02: L4/m=6/Fully-Aware-CF se_ratio","1.45","1.45",TRUE
+"appendix.Rmd WebF-R02","R02: L4/m=12/Fully-Aware-CF se_ratio","1.33","1.33",TRUE
+"appendix.Rmd WebF-R02","R02: L4/m=20/Fully-Aware-CF se_ratio","1.35","1.35",TRUE
+"appendix.Rmd WebF-R02","R02: L4/m=30/Fully-Aware-CF se_ratio","1.42","1.42",TRUE
+"appendix.Rmd WebF-R02","R02: L4/m=6/Fully-Aware-CF coverage","0.986","0.986",TRUE
+"appendix.Rmd WebF-R02","R02: L4/m=12/Fully-Aware-CF coverage","0.980","0.980",TRUE
+"appendix.Rmd WebF-R02","R02: L4/m=20/Fully-Aware-CF coverage","0.989","0.989",TRUE
+"appendix.Rmd WebF-R02","R02: L4/m=30/Fully-Aware-CF coverage","0.992","0.992",TRUE
+"appendix.Rmd WebF-R02","R02: RF_shallow/m=6/Fully-Aware-CF se_ratio","1.40","1.40",TRUE
+"appendix.Rmd WebF-R02","R02: RF_shallow/m=12/Fully-Aware-CF se_ratio","1.32","1.32",TRUE
+"appendix.Rmd WebF-R02","R02: RF_shallow/m=20/Fully-Aware-CF se_ratio","1.31","1.31",TRUE
+"appendix.Rmd WebF-R02","R02: RF_shallow/m=30/Fully-Aware-CF se_ratio","1.37","1.37",TRUE
+"appendix.Rmd WebF-R02","R02: RF_shallow/m=6/Fully-Aware-CF coverage","0.982","0.982",TRUE
+"appendix.Rmd WebF-R02","R02: RF_shallow/m=12/Fully-Aware-CF coverage","0.990","0.990",TRUE
+"appendix.Rmd WebF-R02","R02: RF_shallow/m=20/Fully-Aware-CF coverage","0.985","0.985",TRUE
+"appendix.Rmd WebF-R02","R02: RF_shallow/m=30/Fully-Aware-CF coverage","0.992","0.992",TRUE
+"appendix.Rmd WebF-R02","R02: L3/m=6/Fully-Aware-CF coverage","0.943","0.943",TRUE
+"appendix.Rmd WebF-R02","R02: L3/m=12/Fully-Aware-CF coverage","0.944","0.944",TRUE
+"appendix.Rmd WebF-R02","R02: L3/m=20/Fully-Aware-CF coverage","0.946","0.946",TRUE
+"appendix.Rmd WebF-R02","R02: L3/m=30/Fully-Aware-CF coverage","0.956","0.956",TRUE
+"appendix.Rmd WebF-R02","R02: L3 Fully-Aware-CF se_ratio band within [0.99,1.06]","0.99-1.06","[0.99, 1.06]",TRUE
+"appendix.Rmd WebF-R02","R02: L1/m=6/Fully-Aware-CF coverage (WebD misspec)","0.949","0.949",TRUE
+"appendix.Rmd WebF-R02","R02: L1/m=12/Fully-Aware-CF coverage (WebD misspec)","0.912","0.912",TRUE
+"appendix.Rmd WebF-R02","R02: L1/m=20/Fully-Aware-CF coverage (WebD misspec)","0.888","0.888",TRUE
+"appendix.Rmd WebF-R02","R02: L1/m=30/Fully-Aware-CF coverage (WebD misspec)","0.848","0.848",TRUE
+"appendix.Rmd WebF-R02","R02: L1 Fully-Aware-CF se_ratio band within [0.99,1.05] (calibrated)","0.99-1.05","[0.99, 1.05]",TRUE
+"appendix.Rmd WebF-R02","R02: L4 single-fit coverage monotone decreasing in m","monotone down","0.200>0.169>0.127>0.120",TRUE
+"appendix.Rmd WebF-R02","R02: m=6 -> m_total","60","60",TRUE
+"appendix.Rmd WebF-R02","R02: m=12 -> m_total","120","120",TRUE
+"appendix.Rmd WebF-R02","R02: m=20 -> m_total","200","200",TRUE
+"appendix.Rmd WebF-R02","R02: m=30 -> m_total","300","300",TRUE
+"manuscript.Rmd Sec6","B6: no domain has an empty PSU (all n_empty_psu == 0)","0 (all)","max=0",TRUE
+"manuscript.Rmd Sec6","B6: E1 domain df == full-design df","94","94",TRUE
+"manuscript.Rmd Sec6","B6: E2 domain df == full-design df","94","94",TRUE
+"manuscript.Rmd Sec6","B6: E3 domain df == full-design df","30","30",TRUE
+"manuscript.Rmd Sec6","B6: E4 domain df == full-design df","94","94",TRUE
+"appendix.Rmd WebD-mcse","C7: max MCSE(bias) over all cells <= 0.005","<= 0.005","0.0044",TRUE
+"appendix.Rmd WebD-mcse","C7: max MCSE(empSD) over all cells <= 0.004","<= 0.004","0.0031",TRUE
+"appendix.Rmd WebD-typeI","R13: te=0/standard(A)/L1_param/Fully-Aware-CF reject_rate","0.06","0.06",TRUE
+"appendix.Rmd WebD-typeI","R13: te=0/standard(A)/L2_smooth/Fully-Aware-CF reject_rate","0.05","0.05",TRUE
+"appendix.Rmd WebD-typeI","R13: te=0/standard(A)/L3_adaptive/Fully-Aware-CF reject_rate","0.04","0.04",TRUE
+"appendix.Rmd WebD-typeI","R13: te=0/standard(A)/L4_aggressive/Fully-Aware-CF reject_rate","0.02","0.02",TRUE
+"appendix.Rmd WebD-typeI","R13: te=0/R1(B)/L1_param/Fully-Aware-CF reject_rate","0.08","0.08",TRUE
+"appendix.Rmd WebD-typeI","R13: te=0/R1(B)/L2_smooth/Fully-Aware-CF reject_rate","0.06","0.06",TRUE
+"appendix.Rmd WebD-typeI","R13: te=0/R1(B)/L3_adaptive/Fully-Aware-CF reject_rate","0.07","0.07",TRUE
+"appendix.Rmd WebD-typeI","R13: te=0/R1(B)/L4_aggressive/Fully-Aware-CF reject_rate","0.01","0.01",TRUE
+"appendix.Rmd WebD-typeI","R13: te=0 Non-Aware reject_rate L1-L3 (both designs) within 0.23-0.31","0.23-0.31","[0.229, 0.306]",TRUE
+"appendix.Rmd WebD-typeI","R13: te=0 single-fit Fully-Aware L4 reject_rate (both designs) within 0.56-0.57","0.56-0.57","[0.557, 0.567]",TRUE
+"appendix.Rmd WebD-typeI","R13: te=0.3 Fully-Aware-CF reject_rate L1-L3 (both designs) within 0.20-0.43","0.20-0.43","[0.196, 0.429]",TRUE
+"appendix.Rmd WebD-cv","R18: standard(A)/L3/Fully-Aware-CVu coverage","0.897","0.897",TRUE
+"appendix.Rmd WebD-cv","R18: R1(B)/L3/Fully-Aware-CVu coverage","0.885","0.885",TRUE
+"appendix.Rmd WebD-cv","R20: standard(A)/L5/Fully-Aware-CV coverage","0.85","0.85",TRUE
+"appendix.Rmd WebD-cv","R20: R1(B)/L5/Fully-Aware-CV coverage","0.87","0.87",TRUE
+"appendix.Rmd WebD-cv","R20: L5 single-fit Fully-Aware coverage (both designs) ~ 0.91","0.91","[0.905, 0.909]",TRUE
+"appendix.Rmd WebD-cv","R20: standard(A)/L5/Fully-Aware-CF coverage","0.95","0.95",TRUE
+"appendix.Rmd WebD-cv","R20: R1(B)/L5/Fully-Aware-CF coverage","0.93","0.93",TRUE
+"appendix.Rmd WebD-aipw","R15: standard(A)/L4/AIPW-SF coverage","0.62","0.62",TRUE
+"appendix.Rmd WebD-aipw","R15: R1(B)/L4/AIPW-SF coverage","0.63","0.63",TRUE
+"appendix.Rmd WebD-aipw","R15: standard(A)/L4/AIPW-CF coverage","0.96","0.96",TRUE
+"appendix.Rmd WebD-aipw","R15: R1(B)/L4/AIPW-CF coverage","0.96","0.96",TRUE
+"appendix.Rmd WebD-aipw","R15: standard/L4/AIPW-CF se_ratio (prose 1.05)","1.05","1.05",TRUE
+"appendix.Rmd WebD-aipw","sim_full_summary: standard/L4/Fully-Aware-CF se_ratio (prose 1.45)","1.45","1.45",TRUE
+"appendix.Rmd WebD-dr","R14: max |CF-u bias| over not-both-wrong L1 noninfo cells <= 0.004","<=0.004","0.0041",TRUE
+"appendix.Rmd WebD-dr","R14: W/W/noninfo/L1/CF-u bias (both-wrong)","+0.017","+0.017",TRUE
+"appendix.Rmd WebD-dr","R14: CF-w n_diverged over four L1 info cells within 100-200","100-200","[105, 148]",TRUE
+"appendix.Rmd WebD-harm","R16: standard(A)/L4/Fully-Aware-h coverage","0.39","0.39",TRUE
+"appendix.Rmd WebD-harm","R16: R1(B)/L4/Fully-Aware-h coverage","0.33","0.33",TRUE
+"appendix.Rmd WebD-harm","R16: standard(A)/L4/Fully-Aware-CF-h coverage -> 0.99","0.99","0.99",TRUE
+"appendix.Rmd WebD-harm","R16: R1(B)/L4/Fully-Aware-CF-h coverage -> 0.99","0.99","0.99",TRUE
+"appendix.Rmd WebD-ratesweep","R19: standard/L2_smooth/base_m=30 trend_vs_m6","0.92","0.92",TRUE
+"appendix.Rmd WebD-ratesweep","R19: standard/L3_adaptive/base_m=30 trend_vs_m6","0.88","0.88",TRUE
+"appendix.Rmd WebD-ratesweep","R19: standard/L4_aggressive/base_m=30 trend_vs_m6","1.60","1.60",TRUE
+"appendix.Rmd WebD-ratesweep","R19: standard/L1_param/base_m=30 trend_vs_m6","1.46","1.46",TRUE
+"appendix.Rmd WebD-ratesweep","R19: standard/L2_smooth log-log decay exponent of mean_prod","-0.55","-0.55",TRUE
+"appendix.Rmd WebD-ratesweep","R19: standard/L3_adaptive log-log decay exponent of mean_prod","-0.58","-0.58",TRUE
+"appendix.Rmd WebD-ratesweep","R19: standard/L4_aggressive log-log decay exponent of mean_prod","-0.21","-0.21",TRUE
+"appendix.Rmd WebD-ratesweep","R19: standard/L2 mean_prod_real_sqrtm endpoints rise 0.31->0.61","0.31->0.61","0.31->0.61",TRUE
+"manuscript.Rmd Sec3-remEff","sim_full_summary.csv: headline deff_clust range -> 1.2-1.4","1.2-1.4","1.2-1.4",TRUE
+"ms Sec4 / appendix WebF-highdeff","R12 pooled: L1_param deff_clust (FA EIF)","2.6","2.6",TRUE
+"ms Sec4 / appendix WebF-highdeff","R12 pooled: L3_adaptive deff_clust (FA EIF)","2.8","2.8",TRUE
+"ms Sec4 / appendix WebF-highdeff","R12 pooled: L4_aggressive deff_clust (FA EIF)","3.4","3.4",TRUE
+"appendix.Rmd WebF-highdeff","R12 pooled: L1_param Fully-Aware-CF coverage","0.933","0.933",TRUE
+"appendix.Rmd WebF-highdeff","R12 pooled: L3_adaptive Fully-Aware-CF coverage","0.948","0.948",TRUE
+"appendix.Rmd WebF-highdeff","R12 pooled: L4_aggressive Fully-Aware-CF coverage","0.980","0.980",TRUE
+"appendix.Rmd WebF-highdeff","R12 pooled: L4 Fully-Aware-CF se_ratio (honest conservatism)","1.31","1.31",TRUE
+"appendix.Rmd WebF-highdeff","R12 pooled: L1_param Partially-Aware coverage","0.765","0.765",TRUE
+"appendix.Rmd WebF-highdeff","R12 pooled: L3_adaptive Partially-Aware coverage","0.710","0.710",TRUE
+"appendix.Rmd WebF-highdeff","R12 pooled: L4_aggressive Partially-Aware coverage","0.126","0.126",TRUE
+"appendix.Rmd WebF-highdeff","R12 pooled: L4 Fully-Aware single-fit coverage collapse","0.281","0.281",TRUE
+"appendix.Rmd WebF-highdeff","R12 pooled: L4 Non-Aware coverage (worst)","0.182","0.182",TRUE
+"appendix.Rmd WebF-floorshare","R17 share: E4 expmass05_w","0.21","0.21",TRUE
+"appendix.Rmd WebF-floorshare","R17 share: E2/E3 expmass05_w within 0.03-0.04","0.03-0.04","[0.027, 0.041]",TRUE
+"appendix.Rmd WebF-floorshare","R17 sens: E4/floor=0.05 b","0.016","0.016",TRUE
+"appendix.Rmd WebF-floorshare","R17 sens: E4/floor=0.025 b","0.020","0.020",TRUE
+"appendix.Rmd WebF-floorshare","R17 sens: E4/floor=0.01 b","0.022","0.022",TRUE
+"appendix.Rmd WebF-floorshare","R17 sens: E4/floor=0.05 share_clip_w","0.50","0.50",TRUE
+"appendix.Rmd WebF-floorshare","R17 sens: E4/floor=0.01 share_clip_w","0.04","0.04",TRUE
+"appendix.Rmd WebF-aipwe1","R15 E1: AIPW-CF b","0.036","0.036",TRUE
+"appendix.Rmd WebF-aipwe1","R15 E1: AIPW-CF se_jkn -> 0.008","0.008","0.008",TRUE
+"appendix.Rmd WebF-aipwe1","R15 E1: AIPW-CF se_lin -> 0.008","0.008","0.008",TRUE
+"manuscript.Rmd Fig1-c","R20: L5 Fully-Aware-CF coverage (both designs) within 0.93-0.95","0.93-0.95","[0.934, 0.948]",TRUE
+"manuscript.Rmd Fig1-c","R20: L5 single-fit Fully-Aware coverage (both designs) ~ 0.91","0.91","[0.905, 0.909]",TRUE
+"manuscript.Rmd Fig1-c","R20: L5 Fully-Aware-CV coverage (both designs) within 0.85-0.87","0.85-0.87","[0.850, 0.874]",TRUE
+"manuscript.Rmd Sec5","R13: te=0/standard/L2/Fully-Aware-CF reject_rate near nominal 0.05 (|.-0.05|<=0.02)","near 0.05","0.049",TRUE
+"manuscript.Rmd Sec5","R13: te=0 single-fit Fully-Aware L4 reject_rate > 0.5 (both designs)",">0.5","[0.557, 0.567]",TRUE
+"appendix.Rmd WebD-rrora","A21 csv: binary/L2/Fully-Aware-CF RR coverage","0.954","0.954",TRUE
+"appendix.Rmd WebD-rrora","A21 csv: binary/L2/Fully-Aware-CF OR coverage","0.950","0.950",TRUE
+"appendix.Rmd WebD-rrora","A21 csv: continuous/L2/Fully-Aware-CF ratio-of-means RR coverage","0.944","0.944",TRUE
+"appendix.Rmd WebD-rrora","E1_continuous csv: CF mean-BMI difference b","0.75","0.75",TRUE
+"appendix.Rmd WebD-rrora","E1_continuous csv: CF mean-BMI difference CI","[0.55, 0.96]","[0.55, 0.96]",TRUE
+"appendix.Rmd WebD-rrora","E1_continuous rrmeans csv: CF ratio-of-means RR","1.03","1.03",TRUE
+"appendix.Rmd WebD-deploy","R21: L6/standard(A)/Fully-Aware coverage","0.895","0.895",TRUE
+"appendix.Rmd WebD-deploy","R21: L6/standard(A)/Fully-Aware-CV coverage","0.875","0.875",TRUE
+"appendix.Rmd WebD-deploy","R21: L6/standard(A)/Fully-Aware-CF coverage","0.950","0.950",TRUE
+"appendix.Rmd WebD-deploy","R21: L6/standard(A)/AIPW-SF coverage","0.901","0.901",TRUE
+"appendix.Rmd WebD-deploy","R21: L6/standard(A)/AIPW-CV coverage","0.897","0.897",TRUE
+"appendix.Rmd WebD-deploy","R21: L6/standard(A)/AIPW-CF coverage","0.943","0.943",TRUE
+"appendix.Rmd WebD-deploy","R21: L6/R1(B)/Fully-Aware-CF coverage","0.935","0.935",TRUE
+"appendix.Rmd WebD-deploy","R21: L6/standard(A)/Fully-Aware-CF se_ratio","1.06","1.06",TRUE
+"appendix.Rmd WebD-deploy","R21: L6/R1(B)/Fully-Aware-CF se_ratio","0.99","0.99",TRUE
+"appendix.Rmd WebD-deploy","R21: L6 single-fit/cluster-CV se_ratio (both est., both designs) within 0.80-0.89","0.80-0.89","[0.811, 0.888]",TRUE
+"appendix.Rmd WebD-deploy","R21: deployable cross-fit se_ratio (L6/L7) <= 1.06","<=1.06","1.060",TRUE
+"appendix.Rmd WebD-deploy","R21: max |L6-L7| coverage diff <= 0.01","<=0.01","0.008",TRUE
+"appendix.Rmd WebD-deploy","R21: max |L6-L7| se_ratio diff <= 0.013","<=0.013","0.0125",TRUE
+"appendix.Rmd WebD-deploy","R22: L2/standard/AIPW-CV coverage","0.94","0.94",TRUE
+"appendix.Rmd WebD-deploy","R22: L3/standard/AIPW-CV coverage","0.90","0.90",TRUE
+"appendix.Rmd WebD-deploy","R22: L5/standard/AIPW-SF coverage","0.90","0.90",TRUE
+"appendix.Rmd WebD-deploy","R22: L5/standard/AIPW-CV coverage","0.90","0.90",TRUE
+"appendix.Rmd WebD-deploy","R22: L5/standard/AIPW-CF coverage","0.949","0.949",TRUE
+"appendix.Rmd WebD-deploy","R22: L5/standard/AIPW-CF se_ratio","1.04","1.04",TRUE
+"manuscript.Rmd Abstract","R20: L5 single-fit Fully-Aware coverage (both designs) ~ 0.91","0.91","[0.905, 0.909]",TRUE
+"manuscript.Rmd Abstract","R20: standard(A)/L5/Fully-Aware-CV coverage -> 0.85","0.85","0.85",TRUE
+"manuscript.Rmd Abstract","R20: L5 Fully-Aware-CF coverage (both designs) within 0.93-0.95","0.93-0.95","[0.934, 0.948]",TRUE
+"manuscript.Rmd Abstract","sim_full: L4 single-fit Fully-Aware coverage (both designs) -> 0.18--0.22","0.18--0.22","[0.175, 0.223]",TRUE
+"appendix.Rmd WebF-calib","J3: CF/L1/design coverage","0.944","0.944",TRUE
+"appendix.Rmd WebF-calib","J3: CF/L1/raked coverage","0.945","0.945",TRUE
+"appendix.Rmd WebF-calib","J3: CF/L2/design coverage","0.951","0.951",TRUE
+"appendix.Rmd WebF-calib","J3: CF/L2/raked coverage","0.950","0.950",TRUE
+"appendix.Rmd WebF-overlapsim","J4: FA/L4/base coverage","0.230","0.230",TRUE
+"appendix.Rmd WebF-overlapsim","J4: CF/L4/base coverage","0.986","0.986",TRUE
+"appendix.Rmd WebF-overlapsim","J4: CF/L2/high coverage","0.684","0.684",TRUE
+"appendix.Rmd WebF-overlapsim","J4: CF/L4/high coverage","0.725","0.725",TRUE
+"appendix.Rmd WebF-overlapsim","J4: FA/L4/high coverage","0.163","0.163",TRUE
+"appendix.Rmd WebF-overlapsim","J4: CF/L2/high bias (roughly 0.07)","0.07","0.07",TRUE
+"appendix.Rmd WebF-overlapsim","J4: CF/L4/high bias (roughly 0.08)","0.08","0.08",TRUE
+"appendix.Rmd WebF-vfolds","J5: CF/L2 coverage min over V","0.943","0.943",TRUE
+"appendix.Rmd WebF-vfolds","J5: CF/L2 coverage max over V","0.952","0.952",TRUE
+"appendix.Rmd WebF-vfolds","J5: CF/L4 coverage min over V","0.982","0.982",TRUE
+"appendix.Rmd WebF-vfolds","J5: CF/L4 coverage max over V","0.986","0.986",TRUE

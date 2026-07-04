@@ -1,0 +1,3 @@
+"example","label","method","B","library","b","b_split_sd","se_jkn","se_lin","df","lcl","ucl","lcl_lin","ucl_lin","jkn_mode","jkn_mode_cf"
+"E1","Short sleep -> obesity","AIPW-SF",20,"SL.glm+SL.earth+SL.glmnet",0.0344177043838793,0.000117170827928165,0.00768465484097849,0.00768424677270678,94,0.0191596420544628,0.0496757667132958,0.0191604522835822,0.0496749564841764,"subset_repdes","subset_repdes"
+"E1","Short sleep -> obesity","AIPW-CF",20,"SL.glm+SL.earth+SL.glmnet",0.0357814228340279,0.00112778419072242,0.00771704360354233,0.00771662576706951,94,0.0204590518572879,0.051103793810768,0.0204598814813995,0.0511029641866563,"subset_repdes","subset_repdes"

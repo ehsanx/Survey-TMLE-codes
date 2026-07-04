@@ -1,0 +1,13 @@
+"outcome","rung","method","estimand","n_reps","truth","est_med","bias_log","coverage","mcse_cov","mean_width","se_ratio"
+"binary","L1_param","Fully-Aware","OR",800,2.7119,3.0084,0.1075,0.9275,0.0092,2.7645,1.0371
+"binary","L1_param","Fully-Aware","RR",800,1.9932,2.1445,0.0798,0.9325,0.0089,1.3572,1.0416
+"binary","L1_param","Fully-Aware-CF","OR",800,2.7119,3.0142,0.11,0.9338,0.0088,2.9235,1.0629
+"binary","L1_param","Fully-Aware-CF","RR",800,1.9932,2.1507,0.0797,0.94,0.0084,1.4268,1.074
+"binary","L2_smooth","Fully-Aware","OR",800,2.7119,2.9052,0.0664,0.9338,0.0088,2.5977,1.0115
+"binary","L2_smooth","Fully-Aware","RR",800,1.9932,2.0903,0.0518,0.9438,0.0081,1.2939,1.019
+"binary","L2_smooth","Fully-Aware-CF","OR",800,2.7119,2.9089,0.0771,0.95,0.0077,2.8455,1.0688
+"binary","L2_smooth","Fully-Aware-CF","RR",800,1.9932,2.1015,0.058,0.9538,0.0074,1.3929,1.0695
+"continuous","L1_param","Fully-Aware","RR",800,1.3001,1.3327,0.0258,0.8925,0.011,0.1834,1.0048
+"continuous","L1_param","Fully-Aware-CF","RR",800,1.3001,1.3371,0.028,0.8925,0.011,0.1996,1.0381
+"continuous","L2_smooth","Fully-Aware","RR",800,1.3001,1.3169,0.0121,0.9325,0.0089,0.1766,0.9812
+"continuous","L2_smooth","Fully-Aware-CF","RR",800,1.3001,1.3174,0.0144,0.9438,0.0081,0.1939,1.0237

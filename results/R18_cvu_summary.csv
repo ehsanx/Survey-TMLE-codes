@@ -1,0 +1,5 @@
+"cv_nuis_wts","scenario","rung","method","n_reps","Psi","bias","emp_sd","mean_se","se_ratio","coverage","mcse_cov","deff_clust","icc_eif"
+"unweighted","R1","L2_smooth","Fully-Aware-CVu",1000,0.21,0.0134,0.0344,0.0338,0.9843,0.938,0.0076,1.1793,0.0259
+"unweighted","R1","L3_adaptive","Fully-Aware-CVu",1000,0.21,0.0126,0.0357,0.0299,0.8391,0.885,0.0101,1.1868,0.025
+"unweighted","standard","L2_smooth","Fully-Aware-CVu",1000,0.2092,0.0138,0.0436,0.0443,1.0161,0.941,0.0075,1.2445,0.0344
+"unweighted","standard","L3_adaptive","Fully-Aware-CVu",1000,0.2092,0.0131,0.0448,0.0388,0.8654,0.897,0.0096,1.2549,0.0342

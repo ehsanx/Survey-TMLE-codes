@@ -1,0 +1,4 @@
+"floor","example","label","method","B","b","b_split_sd","se","df","lcl","ucl","share_clip_w","mass05_w","expmass05_w"
+0.05,"E4","GDM history -> hypertension (hardened)","Fully-Aware-CF",20,0.0158,0.0054,0.023,94,-0.0298,0.0614,0.5024,0.5024,0.2066
+0.025,"E4","GDM history -> hypertension (hardened)","Fully-Aware-CF",20,0.0205,0.0071,0.0272,94,-0.0335,0.0744,0.2337,0.5024,0.2066
+0.01,"E4","GDM history -> hypertension (hardened)","Fully-Aware-CF",20,0.022,0.0082,0.0292,94,-0.036,0.08,0.0377,0.5024,0.2066
